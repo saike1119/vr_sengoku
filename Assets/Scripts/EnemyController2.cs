@@ -40,7 +40,7 @@ void OnCollisionEnter(Collision other){
 	if(other.gameObject.tag=="sword"){
 		hitCount++;
 	Debug.Log("ヒーローの剣に当たってしまった");
-		if(hitCount==8){//四回攻撃されたら死亡
+		if(hitCount==4){//四回攻撃されたら死亡
 			Destroy(gameObject);
 			gameController.scoreCounter(300);
 		}
