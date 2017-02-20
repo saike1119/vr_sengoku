@@ -4,23 +4,54 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
+	//UI
 	public Text scoreLabel;
 	public Text hpLabel;
 	public Image scoreBar;
 	public Image hpBar;
 	public Text timer;
+	public Text enemyNumber;
 	float time=300;
 	
+	//スコアとHP用変数
 	private int score;
 	private int hp;
-
+	private float scoreAmount;
+	public EnemyGenerator enemyGenerator;
+	private int enemyNumberSave;
+	public bool firstDeath=false;
+	
+	//フレーム経過時間関係
+	private float del;
+	
 	// Use this for initialization
 	void Start () {
 		scoreLabel.text="0";
+		enemyNumberSave=enemyGenerator.enemyNumber;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		/*
+		del+=Time.deltaTime;
+		if(del>2){
+			del=0;
+			scoreAmount+=0.05f;
+			scoreBar.fillAmount=scoreAmount;
+		}
+		*/
+		
+		//最初から少し表示されてしまうのを防ぐ
+		if(!(enemyNumberSave==enemyGenerator.enemyNumber)){
+		//スコアの周りの表示のための処理
+		scoreAmount=1.0f/enemyGenerator.enemyNumber-0.25f;
+		scoreBar.fillAmount=scoreAmount;
+		if(enemyGenerator.enemyNumber==0) scoreBar.fillAmount=1;
+		}
+		//敵の数を表示
+		enemyNumber.text=""+enemyGenerator.enemyNumber;
+		
+		//スコアラベルの更新
 		scoreLabel.text=""+score;//スコア更新
 		time-=Time.deltaTime;
 		timer.text=""+time.ToString("F0");

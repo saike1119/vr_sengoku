@@ -5,19 +5,21 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
 	GameObject target;
 	public float speed;
-	CharacterController controller;
+	//CharacterController controller;
 	float dif;
-	Rigidbody rigid;
+	//Rigidbody rigid;
 	
 	private int hitCount=0;
 	
 	GameController gameController;
+	EnemyGenerator enemyGenerator;
 
 	// Use this for initialization
 	void Start () {
-		controller=GetComponent<CharacterController>();
+		//controller=GetCompofnent<CharacterController>();
 		target=GameObject.Find("MeMySelf");
 		gameController=GameObject.Find("GameController").GetComponent<GameController>();
+		enemyGenerator=GameObject.Find("EnemyGenerator").GetComponent<EnemyGenerator>();
 	}
 	
 		// Update is called once per frame
@@ -28,7 +30,7 @@ public class EnemyController : MonoBehaviour {
 		//ターゲットに向かっていく処理
 		transform.rotation=Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (target.transform.position - transform.position), 0.3f);//ターゲットの方に少しずつ向きが変わる
 		//ターゲットとの距離が近かった時の処理
-		 if(dif<7){
+		 if(dif<3){
         //Debug.Log("近いよ君！");
         }else{//ターゲットがまだ遠かったらターゲットに近づく
         transform.position += transform.forward *Time.deltaTime* speed;//ターゲットの方へ移動させる処理
@@ -44,6 +46,7 @@ void OnCollisionEnter(Collision other){
 		if(hitCount==2){//四回攻撃されたら死亡
 			Destroy(gameObject);
 			gameController.scoreCounter(100);
+			enemyGenerator.enemyNumber--;//敵の数の値を減らす
 		}
 	}
 }

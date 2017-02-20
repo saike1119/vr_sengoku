@@ -39,7 +39,9 @@ public class HeroController : MonoBehaviour {
 			//GetAxisで、上矢印キーなら1が返され、下矢印キーなら-1が返される。
 			if(Input.GetAxis("Vertical")>0.0f){
 			//moveDirection.z=Input.GetAxis("Vertical")*speedZ;//1*speedZでまっすぐのみ
-			moveDirection=Camera.main.transform.forward;
+			moveDirection=Camera.main.transform.forward*speedZ;
+			}else if(Input.GetKey(KeyCode.DownArrow)){
+			moveDirection=Camera.main.transform.forward*-1*speedZ;
 			}else{//指を縦矢印キーから離れるたびに動きを止める。
 			moveDirection.x=0;
 			moveDirection.y=0;
