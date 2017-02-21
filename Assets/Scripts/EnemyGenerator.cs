@@ -23,7 +23,7 @@ public class EnemyGenerator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(enemyNumber);
+		//Debug.Log(enemyNumber);
 		del+=Time.deltaTime;
 			if(del>5 && !(enemyNumberSave==generateCount)){//5秒ごとに敵を生成
 			del=0;

@@ -41,13 +41,14 @@ public class GameController : MonoBehaviour {
 		}
 		*/
 		
-		//最初から少し表示されてしまうのを防ぐ
-		if(!(enemyNumberSave==enemyGenerator.enemyNumber)){
 		//スコアの周りの表示のための処理
-		scoreAmount=1.0f/enemyGenerator.enemyNumber-0.25f;
+		scoreAmount=(float)enemyGenerator.enemyNumber/enemyNumberSave;//%計算
+		scoreAmount=1-scoreAmount;//敵の数の値が減っていくスタイルだったので、1引いて倒したのが何%なのか計算
+		//Debug.Log(scoreAmount);
+		
+		//スコアの周りの部分のパラメータを変更してうまく表示
 		scoreBar.fillAmount=scoreAmount;
-		if(enemyGenerator.enemyNumber==0) scoreBar.fillAmount=1;
-		}
+		
 		//敵の数を表示
 		enemyNumber.text=""+enemyGenerator.enemyNumber;
 		
@@ -59,7 +60,7 @@ public class GameController : MonoBehaviour {
 	
 	public void scoreCounter(int point){
 		score+=point;
-		Debug.Log(score);
+		//Debug.Log(score);
 	}
 	
 	public void hpController(){
