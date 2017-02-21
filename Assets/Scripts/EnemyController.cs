@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour {
 	float dif;
 	//Rigidbody rigid;
 	
-	private int hitCount=0;
+	private int hitCount=0;//倒れるまでの受ける攻撃回数
 	
 	GameController gameController;
 	EnemyGenerator enemyGenerator;

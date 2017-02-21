@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroController : MonoBehaviour {
+	//キャラクターコントローラー関係
 	CharacterController controller;
 	Vector3 moveDirection=Vector3.zero;
 	public float speedZ;
 	public float speedJump;
 	
+	//ダメージの値をGameControllerに渡すので必要
+	public GameController gameController;
+	
+	//剣関係
 	public GameObject sword;
 	public GameObject swordPosBlock;//剣の回転の中心点のためで、本番ではいらない。
-	private float del;
+	private float del;s
 	
-	private bool attacked=false;
+	private bool attacked=false;//剣の振ったのか振っていないのか確かめるため
 
 	// Use this for initialization
 	void Start () {
@@ -57,5 +62,15 @@ public class HeroController : MonoBehaviour {
 			}
 			controller.SimpleMove(moveDirection);
 		//}//isGrounded終わり
+	}//Update終わり
+	
+	//敵の武器が自分に衝突したら呼ばれる
+	void OnCollisionEnter(Collision other){
+			Debug.Log("自分に何かが当たったよ");
+
+		if(other.gameObject.tag=="enemyWeapon"){
+			Debug.Log("自分に何かが当たったよ");
+			gameController.hpController(5);
+		}
 	}
 }

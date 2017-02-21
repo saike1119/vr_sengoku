@@ -15,11 +15,10 @@ public class GameController : MonoBehaviour {
 	
 	//スコアとHP用変数
 	private int score;
-	private int hp;
+	public  int hp=100;
 	private float scoreAmount;
 	public EnemyGenerator enemyGenerator;
 	private int enemyNumberSave;
-	public bool firstDeath=false;
 	
 	//フレーム経過時間関係
 	private float del;
@@ -27,7 +26,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		scoreLabel.text="0";
-		enemyNumberSave=enemyGenerator.enemyNumber;
+		enemyNumberSave=enemyGenerator.enemyNumber;//最初に敵の数を把握しておく
 	}
 	
 	// Update is called once per frame
@@ -54,16 +53,23 @@ public class GameController : MonoBehaviour {
 		
 		//スコアラベルの更新
 		scoreLabel.text=""+score;//スコア更新
+		
+		//時間表示
 		time-=Time.deltaTime;
 		timer.text=""+time.ToString("F0");
+		
+		//Hpラベルの更新
+		hpLabel.text=""+hp+"%";
+		
 	}
 	
+	//他クラスから呼ばれる。スコアを加算していく
 	public void scoreCounter(int point){
 		score+=point;
 		//Debug.Log(score);
 	}
-	
-	public void hpController(){
-		
+	//他クラスから呼ばれる。heroクラスから呼ばれる。
+	public void hpController(int damage){
+		hp-=damage;
 	}
 }
