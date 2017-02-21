@@ -15,7 +15,7 @@ public class HeroController : MonoBehaviour {
 	//剣関係
 	public GameObject sword;
 	public GameObject swordPosBlock;//剣の回転の中心点のためで、本番ではいらない。
-	private float del;s
+	private float del;
 	
 	private bool attacked=false;//剣の振ったのか振っていないのか確かめるため
 
@@ -56,16 +56,19 @@ public class HeroController : MonoBehaviour {
 			//方向転換
 			transform.Rotate(0,Input.GetAxis("Horizontal")*3,0);//横方向の矢印キーが押されたらその方向にキャラクターを回転させる。
 			
-			if(Input.GetButtonUp("Jump")){
+			//スペースキーが押されたらジャンプする処理
+			if(Input.GetKeyUp(KeyCode.Space)){
 				Debug.Log("スペースキーが押されたでござる");
 				moveDirection.y=speedJump;
 			}
+			
+			//渡された値によって実際に動かす
 			controller.SimpleMove(moveDirection);
 		//}//isGrounded終わり
 	}//Update終わり
 	
 	//敵の武器が自分に衝突したら呼ばれる
-	void OnCollisionEnter(Collision other){
+	void OnTriggerEnter(Collider other){
 			Debug.Log("自分に何かが当たったよ");
 
 		if(other.gameObject.tag=="enemyWeapon"){
