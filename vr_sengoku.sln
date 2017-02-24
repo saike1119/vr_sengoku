@@ -1,9 +1,9 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{2E6A5B66-4690-9364-7AE0-9B6E47BC9C14}") = "vr_sengoku", "Assembly-CSharp-firstpass.csproj", "{76F9DBF0-3A14-2A2F-2737-A160168560E1}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vr_sengoku", "Assembly-CSharp-firstpass.csproj", "{76F9DBF0-3A14-2A2F-2737-A160168560E1}"
 EndProject
-Project("{2E6A5B66-4690-9364-7AE0-9B6E47BC9C14}") = "vr_sengoku", "Assembly-CSharp.csproj", "{E4154F0D-FD6E-4DE1-8539-768245CD639E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vr_sengoku", "Assembly-CSharp.csproj", "{E4154F0D-FD6E-4DE1-8539-768245CD639E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
