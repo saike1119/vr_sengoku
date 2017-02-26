@@ -1,8 +1,8 @@
 ------------------------------------------------------------------
-Elemental Free 1.2.0
+Elemental Free 1.2.5
 ------------------------------------------------------------------
 
-	Elemental Free contains 48 Shuriken Particles for 8 elements. There are individual quality sets for desktop and mobile which are ready to use for your games.
+	Elemental Free contains 96 Shuriken Particles for desktop and mobile.
 
 	This package is free version of Elemental Plus, more info please see https://www.assetstore.unity3d.com/#!/content/76443
 
@@ -21,11 +21,11 @@ Elemental Free 1.2.0
 		
 	Compatible:
 
-		• Unity 5.4.0 or higher.
+		• Unity 5.5.1 or higher.
 
 	Product page:
 	
-		Unity Asset Store:	https://www.assetstore.unity3d.com/en/#!/content/11158
+		https://www.assetstore.unity3d.com/en/#!/content/11158
 
 	Please direct any bugs/comments/suggestions to geteamdev@gmail.com
 	
@@ -52,6 +52,11 @@ Using demo scene
 Release notes
 ------------------------------------------------------------------
 
+	Version 1.2.5
+
+		• Update GUI Animator FREE to version 1.1.5.
+		• Unity 5.5.1 or higher compatible.
+
 	Version 1.2.0
 
 		• Update and redesign all particles to work with Unity 5.4.0 or higher.
@@ -59,13 +64,13 @@ Release notes
 		• Update GUI Animator FREE to version 1.1.0.
 		• Unity 5.4.0 and higher compatible.
 
-	Version 1.1.6 (Released on May 19, 2016)
+	Version 1.1.6
 
 		• Update GUI Animator FREE to version 1.0.1.
 		• Unity 4.7.1 and higher compatible.
 		• Unity 5.3.4 and higher compatible.
 
-	Version 1.1.5 (Released on Mar 29, 2016)
+	Version 1.1.5
 	
 		• Add Full Screen toggle button.
 		• Add Settings button and details panels.
@@ -77,19 +82,19 @@ Release notes
 		• Unity 4.6.9 and higher compatible.
 		• Unity 5.3.2 and higher compatible.
 
-	version 1.1.1 (Released on May 30, 2014)
+	version 1.1.1
 
 		• Fixed wrong display of Element order (Credit to Craig Ferguson)
 		• Change particle order to Fire, Water, Wind, Earth, Thunder, Ice, Light and Darkness.
 
-	version 1.1 (Released on May 1, 2014)
+	version 1.1
 
 		• Add OrbitCamera and TestParticles scripts.
 		• Fixed and updated some particles.
 		• Rename "Resource" folder to "Media".
 		• Unity 4.2.2 and higher compatible.
 
-	version 1.0 (Initial version, released on Sep 3, 2013)
+	version 1.0 (Initial version)
 
 		53 particles from 8 elements.
 		• Darkness (2)

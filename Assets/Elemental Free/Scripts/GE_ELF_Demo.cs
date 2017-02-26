@@ -1,6 +1,6 @@
 ﻿// Elemental Free
-// Version: 1.2.0
-// Compatilble: Unity 5.4.0 or higher, see more info in Readme.txt file.
+// Version: 1.2.5
+// Compatilble: Unity 5.5.1 or higher, see more info in Readme.txt file.
 //
 // Developer:			Gold Experience Team (https://www.assetstore.unity3d.com/en/#!/search/page=1/sortby=popularity/query=publisher:4162)
 //
@@ -107,7 +107,7 @@ public class GE_ELF_Demo : MonoBehaviour
 		if (enabled)
 		{
 			// Set GUIAnimSystemFREE.Instance.m_AutoAnimation to false in Awake() will let you control all GUI Animator elements in the scene via scripts.
-			//GUIAnimSystemFREE.Instance.m_AutoAnimation = false;
+			GUIAnimSystemFREE.Instance.m_AutoAnimation = false;
 		}
 	}
 

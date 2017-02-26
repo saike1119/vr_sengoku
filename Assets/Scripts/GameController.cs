@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour {
 	//UI
 	public Text scoreLabel;
+	/*
 	public Text hpLabel;
 	public Image scoreBar;
 	public Image hpBar;
 	public Text timer;
 	public Text enemyNumber;
-	public float time=300;
+	*/
+	public float time=300;//ゲームの制限時間指定
+	
+	//ダメージ関連　
+	public Image damageImage;
+	private float damageEffect=0.0f;
 	
 	//スコアとHP用変数
 	private int score;
-	public  int hp=100;
+	public  int hp=4;
 	private float scoreAmount;
 	private float hpAmount;
 	public EnemyGenerator enemyGenerator;//UIを〜％と計算するには、敵の数を知りたい
@@ -28,8 +34,15 @@ public class GameController : MonoBehaviour {
 	//時間制限関係
 	private bool timeOver=false;
 	
+	//必殺技関連
+	public HeroController heroController;
+	
+	//最終ボスが倒れたかどうかフラグ
+	public bool gameClear=false;
+	
 	// Use this for initialization
 	void Start () {
+		//score=500;//必殺技がうまく機能してるか実験
 		scoreLabel.text="0";
 		enemyNumberSave=enemyGenerator.enemyNumber;//最初に敵の数を把握しておく
 		hpSave=hp;
@@ -37,8 +50,37 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		/*
-		del+=Time.deltaTime;
+		//Debug.Log(hp);
+		//Debug.Log(del);
+		//ダメージエフェクト処理
+		if(!(hp==4)){//少しでもダメージを受けていたら少しずつ回復処理
+			del+=Time.deltaTime;
+			damageEffect-=del/2;//色の数値の部分を徐々に減らす
+		//Debug.Log(damageEffect);
+		//画像の色と透明度の状態を常に更新
+		 damageImage.color=new Color(255.0f/255,255.0f/255,255.0f/255,damageEffect/255);
+		}else{
+		 damageImage.color=new Color(255.0f/255,255.0f/255,255.0f/255,0.0f/255);//最初は非表示
+		 del=0;//回復が終わったら減算一時停止			
+		}
+		//ダメージと透明度の比例。damageEffectは一番下の関数で加算している		
+		if(damageEffect<=0) hp=4;
+		if(damageEffect>0 && damageEffect<=30) hp=3;
+		if(damageEffect>30 && damageEffect<=60) hp=2;
+		if(damageEffect>60 && damageEffect<=120) hp=1;
+		
+		//敵を全て倒したらResultシーンへ
+		if(gameClear==true){
+		PlayerPrefs.SetInt("Score", score);//キーに対する値を設定する
+		PlayerPrefs.Save();			
+			 SceneManager.LoadScene("ResultScene");
+			}
+		
+		//スコアが500ポイント毎に必殺技許可関数を呼ぶ	
+		if(score%500==0 && !(score==0) && heroController.specialAttackOk==false){
+			heroController.SpecialAttackCounter();
+		}
+	/*
 		if(del>2){
 			del=0;
 			scoreAmount+=0.05f;
@@ -47,19 +89,20 @@ public class GameController : MonoBehaviour {
 		*/
 		
 		//スコアの周りの表示のための処理
-		scoreAmount=(float)enemyGenerator.enemyNumber/enemyNumberSave;//%計算
-		scoreAmount=1-scoreAmount;//敵の数の値が減っていくスタイルだったので、1引いて倒したのが何%なのか計算
+		//scoreAmount=(float)enemyGenerator.enemyNumber/enemyNumberSave;//%計算
+		//scoreAmount=1-scoreAmount;//敵の数の値が減っていくスタイルだったので、1引いて倒したのが何%なのか計算
 		//Debug.Log(scoreAmount);
 		
 		//スコアの周りの部分のパラメータを変更してうまく表示
-		scoreBar.fillAmount=scoreAmount;
+		//scoreBar.fillAmount=scoreAmount;
 				
 		//スコアラベルの更新
 		scoreLabel.text=""+score;//スコア更新
 		
 		//敵の数を表示
-		enemyNumber.text=""+enemyGenerator.enemyNumber;
+		//enemyNumber.text=""+enemyGenerator.enemyNumber;
 		
+		/*
 		//時間表示
 		if(time>=0){//マイナス時間にならないように
 		time-=Time.deltaTime;
@@ -79,10 +122,10 @@ public class GameController : MonoBehaviour {
 		
 		//Hpの数値を更新(テキスト)
 		hpLabel.text=""+hp+"%";
-		
+		*/
 	}//update
 	
-	//他クラスから呼ばれる。スコアを加算していく
+	//enemyControllerクラスから呼ばれる。スコアを加算していく
 	public void scoreCounter(int point){
 		score+=point;
 		//Debug.Log(score);
@@ -90,5 +133,6 @@ public class GameController : MonoBehaviour {
 	//他クラスから呼ばれる。heroクラスから呼ばれる。
 	public void hpController(int damage){
 		hp-=damage;
+		damageEffect+=50;
 	}
 }

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour {
-	public GameObject[] enemyPre;
-	public GameObject dark;
+	public GameObject[] enemyPre;//雑魚キャラオブジェクト配列
+	public GameObject enemyBossPre;//ボスキャラオブジェクト
+	public GameObject dark;//使用するダークパーティクル
 	public int enemyNumber;//敵の数を指定
-	private int enemyNumberSave;
-	GameObject enemy;
-	GameObject effect;
-	private float del;
+	private int enemyNumberSave;//指定した敵の数を記憶するための変数
+	GameObject enemy;//生成する敵キャラ
+	GameObject effect;//敵を生成すると同時に暗闇エフェクトも生成
+	private float del;//時間関係
+	private bool bossNow=false;
 	Vector3 enemyPos;
 	private float PosX;
 	private float PosZ;
@@ -25,7 +27,8 @@ public class EnemyGenerator : MonoBehaviour {
 	void Update () {
 		//Debug.Log(enemyNumber);
 		del+=Time.deltaTime;
-			if(del>5 && !(enemyNumberSave==generateCount)){//5秒ごとに敵を生成
+		//3秒ごとに生成、生成すると決めた数と生成した数の差が1(ボスを除いた数になるように)一致しない間。
+			if(del>3 && !(enemyNumberSave==generateCount)){
 			del=0;
 			//敵の生成位置をランダムに生成
 			PosX=Random.Range(-170,-121);//-170から-120まで
@@ -39,9 +42,23 @@ public class EnemyGenerator : MonoBehaviour {
 			generateCount++;
 			Invoke("GenerateLate",2.0f);
 			}//〜秒ごと
+			
+			//指定した数の雑魚キャラ全て倒したら、ボスを生成
+			if(enemyNumber==0 && bossNow==false){
+				Debug.Log("ボスの出番やで");
+				bossNow=true;
+				enemyPos=new Vector3(-145,5,-60);
+			effect=(GameObject)Instantiate(dark,enemyPos,Quaternion.identity);
+			Invoke("GenerateLate",2.0f);
+			}
 	}//update
 	
+	//暗闇エフェクトの後に敵オブジェクを生成する関数
 	void GenerateLate(){
+		if(bossNow==false){//生成するのが雑魚キャラなのかボスなのか判別
 		enemy=(GameObject)Instantiate(enemyPre[enemyType],enemyPos,Quaternion.identity);
+		}else{
+		enemy=(GameObject)Instantiate(enemyBossPre,enemyPos,Quaternion.identity);		
+		}
 	}
 }

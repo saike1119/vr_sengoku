@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//controller=GetCompofnent<CharacterController>();
-		target=GameObject.Find("MeMySelf");
+		target=GameObject.Find("FPSController");
 	//生成されてからスクリプトファイル見つける
 		gameController=GameObject.Find("GameController").GetComponent<GameController>();
 		enemyGenerator=GameObject.Find("EnemyGenerator").GetComponent<EnemyGenerator>();
@@ -44,8 +44,7 @@ public class EnemyController : MonoBehaviour {
 void OnCollisionEnter(Collision other){
 	if(other.gameObject.tag=="sword"){
 		hitCount++;
-	Debug.Log("ヒーローの剣に当たってしまった");
-		if(hitCount==2){//四回攻撃されたら死亡
+		if(hitCount==2){//2回攻撃されたら死亡
 			Destroy(gameObject);
 			gameController.scoreCounter(100);
 			enemyGenerator.enemyNumber--;//敵の数の値を減らす
