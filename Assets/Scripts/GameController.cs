@@ -46,6 +46,9 @@ public class GameController : MonoBehaviour {
 		scoreLabel.text="0";
 		enemyNumberSave=enemyGenerator.enemyNumber;//最初に敵の数を把握しておく
 		hpSave=hp;
+		//EnemyBossControllerでのボスが生成されたことを登録する処理で、ここでリセット
+		PlayerPrefs.SetInt("BossExist", 0);//キーに対する値を設定する
+		PlayerPrefs.Save();
 	}
 	
 	// Update is called once per frame
@@ -68,6 +71,9 @@ public class GameController : MonoBehaviour {
 		if(damageEffect>0 && damageEffect<=30) hp=3;
 		if(damageEffect>30 && damageEffect<=60) hp=2;
 		if(damageEffect>60 && damageEffect<=120) hp=1;
+		
+		//体力が0になったらResultシーンへ
+		if(hp==0) SceneManager.LoadScene("ResultScene");
 		
 		//敵を全て倒したらResultシーンへ
 		if(gameClear==true){

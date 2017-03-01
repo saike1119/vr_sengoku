@@ -35,7 +35,7 @@ public class HeroController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//体全体をカメラの向きと同じ方向に向かせる
+		//体全体をカメラの向きと同じ方向に向かせる(横方向のみ)
 		transform.rotation= Quaternion.Euler(0,target.transform.localEulerAngles.y,0);
 		
 			//とりあえずクリックしたら攻撃
@@ -47,7 +47,7 @@ public class HeroController : MonoBehaviour {
 				
 				//必殺技が打てる状態なら技オブジェクト生成
 				if(specialAttackOk==true){
-						specialAttackOk=false;     	
+						specialAttackOk=false;
 					specialAttack=(GameObject)Instantiate(specialAttackPre,transform.position,Quaternion.identity);
             Rigidbody attackRigidbody = specialAttack.GetComponent<Rigidbody>();//プレファブのrigidbodyコンポーネントを取得
             attackRigidbody.AddForce(transform.forward*300);

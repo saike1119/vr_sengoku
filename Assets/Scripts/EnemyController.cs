@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//controller=GetCompofnent<CharacterController>();
-		target=GameObject.Find("FPSController");
+		target=GameObject.Find("Target of the enemy");//FPSControllerだった
 	//生成されてからスクリプトファイル見つける
 		gameController=GameObject.Find("GameController").GetComponent<GameController>();
 		enemyGenerator=GameObject.Find("EnemyGenerator").GetComponent<EnemyGenerator>();
@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour {
 		//ターゲットに向かっていく処理
 		transform.rotation=Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (target.transform.position - transform.position), 0.3f);//ターゲットの方に少しずつ向きが変わる
 		//ターゲットとの距離が近かった時の処理
-		 if(dif<2.5){
+		 if(dif<1.5){
         //Debug.Log("近いよ君！");
         }else{//ターゲットがまだ遠かったらターゲットに近づく
         transform.position += transform.forward *Time.deltaTime* speed;//ターゲットの方へ移動させる処理

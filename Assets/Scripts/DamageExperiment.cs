@@ -19,7 +19,7 @@ public class DamageExperiment : MonoBehaviour {
 			del=0;
 			blockPos=new Vector3(-150.5f,5,-95);
 			 block=(GameObject)Instantiate(blockPre,blockPos,Quaternion.identity);
-			  Invoke("Destroyer",2.0f);
+			  Invoke("Destroyer",2.0f);//ここをコメントアウトすれば、短時間で攻撃を受けた際にゲームオーバーすることがわかります。
 		}
 	}
 	
