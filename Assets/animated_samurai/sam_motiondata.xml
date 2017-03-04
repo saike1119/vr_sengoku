@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Anim>
+ <Data id="1" name="samurai_bow_combat_mode" startFrame="0f" endFrame="75f" />
+ <Data id="2" name="samurai_taking_arrow_fromBack" startFrame="76f" endFrame="126f" />
+ <Data id="3" name="samurai_charging_arrow" startFrame="127f" endFrame="162f" />
+ <Data id="4" name="samurai_aim" startFrame="163f" endFrame="263f" />
+ <Data id="5" name="samurai_shoting" startFrame="264f" endFrame="299f" />
+ <Data id="6" name="samurai_looking_around" startFrame="304f" endFrame="480f" />
+ <Data id="7" name="samurai_sword_out_01" startFrame="481f" endFrame="521f" />
+ <Data id="8" name="samurai_combat_mode" startFrame="522f" endFrame="572f" />
+ <Data id="9" name="samurai_backwards" startFrame="573f" endFrame="608f" />
+ <Data id="10" name="samurai_below_high_swing" startFrame="609f" endFrame="644f" />
+ <Data id="11" name="samurai_dodge_to_left" startFrame="645f" endFrame="680f" />
+ <Data id="12" name="samurai_dodge_to_right" startFrame="681f" endFrame="716f" />
+ <Data id="13" name="samurai_Hit_from_front" startFrame="717f" endFrame="752f" />
+ <Data id="14" name="samurai_moving_left" startFrame="753f" endFrame="773f" />
+ <Data id="15" name="samurai_moving_right" startFrame="774f" endFrame="794f" />
+ <Data id="16" name="samurai_parry_from_stright_down" startFrame="795f" endFrame="830f" />
+ <Data id="17" name="samurai_parry_mid_front" startFrame="831f" endFrame="866f" />
+ <Data id="18" name="samurai_parry_mid_left" startFrame="867f" endFrame="902f" />
+ <Data id="19" name="samurai_parry_mode" startFrame="907f" endFrame="957f" />
+ <Data id="20" name="samurai_specal_attack_A" startFrame="962f" endFrame="997f" />
+ <Data id="21" name="samurai_specal_attack_B" startFrame="998f" endFrame="1043f" />
+ <Data id="22" name="samurai_swing_high_straight_down" startFrame="1044f" endFrame="1079f" />
+ <Data id="23" name="samurai_swing_mid_left" startFrame="1080f" endFrame="1115f" />
+ <Data id="24" name="samurai_swing_mid_right" startFrame="1116f" endFrame="1151f" />
+ <Data id="25" name="samurai_thrust_mid" startFrame="1152f" endFrame="1187f" />
+ <Data id="26" name="samurai_ThrowingAxe" startFrame="1188f" endFrame="1223f" />
+ <Data id="27" name="samurai_ThrowingSpear" startFrame="1224f" endFrame="1259f" />
+ <Data id="28" name="samurai_ThrowingSuriken" startFrame="1260f" endFrame="1295f" />
+ <Data id="29" name="samurai_sword_back_01" startFrame="1296f" endFrame="1336f" />
+ <Data id="30" name="samurai_StandingFree" startFrame="1337f" endFrame="1437f" />
+ <Data id="31" name="samurai_talking" startFrame="1438f" endFrame="1483f" />
+ <Data id="32" name="samurai_use_object" startFrame="1484f" endFrame="1524f" />
+ <Data id="33" name="samurai_charging" startFrame="1529f" endFrame="1551f" />
+ <Data id="34" name="samurai_Run" startFrame="1556f" endFrame="1578f" />
+ <Data id="35" name="samurai_Jump_runing" startFrame="1583f" endFrame="1623f" />
+ <Data id="36" name="samurai_walk" startFrame="1628f" endFrame="1673f" />
+ <Data id="37" name="samurai_Climbing_ladder" startFrame="1678f" endFrame="1708f" />
+ <Data id="38" name="samurai_Dying" startFrame="1713f" endFrame="1778f" />
+</Anim>
