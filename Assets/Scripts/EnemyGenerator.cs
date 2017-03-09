@@ -27,12 +27,12 @@ public class EnemyGenerator : MonoBehaviour {
 	void Update () {
 		//Debug.Log(enemyNumber);
 		del+=Time.deltaTime;
-		//3秒ごとに生成、生成すると決めた数と生成した数の差が1(ボスを除いた数になるように)一致しない間。
+		//3秒ごとに生成、生成すると決めた数と生成した数が一致しない間
 			if(del>3 && !(enemyNumberSave==generateCount)){
 			del=0;
 			//敵の生成位置をランダムに生成
-			PosX=Random.Range(-170,-121);//-170から-120まで
-			PosZ=Random.Range(-70,-81);//-70から-80
+			PosX=Random.Range(-16,25);//-170から-120まで
+			PosZ=Random.Range(15,30);//-70から-80
 		
 			//敵の種類をランダムに
 			enemyType=Random.Range(0,enemyPre.Length);
@@ -47,9 +47,9 @@ public class EnemyGenerator : MonoBehaviour {
 			if(enemyNumber==0 && bossNow==false){
 				Debug.Log("ボスの出番やで");
 				bossNow=true;
-				enemyPos=new Vector3(-145,5,-60);
-			effect=(GameObject)Instantiate(dark,enemyPos,Quaternion.identity);
-			Invoke("GenerateLate",2.0f);
+				enemyPos=new Vector3(0.5f,1,4);
+				effect=(GameObject)Instantiate(dark,enemyPos,Quaternion.identity);
+				Invoke("GenerateLate",2.0f);
 			}
 	}//update
 	

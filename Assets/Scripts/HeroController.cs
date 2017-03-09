@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroController : MonoBehaviour {
 	//キャラクターコントローラー関係
@@ -16,6 +17,7 @@ public class HeroController : MonoBehaviour {
 	public GameObject sword;
 	public GameObject sword2;
 	public GameObject swordPosBlock;//剣の回転の中心点のためで、本番ではいらない。
+	private float del;
 	
 	private bool attacked=false;//剣の振ったのか振っていないのか確かめるため
 	
@@ -26,11 +28,13 @@ public class HeroController : MonoBehaviour {
 	public GameObject specialAttackPre;//使うプレファブ
 	GameObject specialAttack;//生成するオブジェクト
 	Rigidbody rigid;//飛ばすので
-	public bool specialAttackOk=false;//必殺技フラグ
-
+	Vector3 specialAttackPos;//必殺技を生成する位置(少し後ろから生成したいので)
+	public int specialAttackCount=0;//必殺技残り回数
+	public Text specialAttackLabel;//必殺技残り回数ラベル
 	// Use this for initialization
 	void Start () {
 		controller=GetComponent<CharacterController>();
+		specialAttackLabel.text=""+specialAttackCount;
 	}
 	
 	// Update is called once per frame
@@ -40,65 +44,62 @@ public class HeroController : MonoBehaviour {
 		
 			//とりあえずクリックしたら攻撃
 			if(Input.GetMouseButtonUp(0)){
-				if(attacked==false){	
-				attacked=true;
-				sword.transform.RotateAround(swordPosBlock.transform.position, transform.right, 45);
-				sword2.transform.RotateAround(swordPosBlock.transform.position, transform.right, 45);
+				attacked=true;//攻撃をしたことを表すフラグ
+				
+				//500の倍数になるごとに必殺技の回数を増やす
+				if(gameController.score%500==0 && !(gameController.score==0)){
+					specialAttackCount++;
+				}
+				
+		//必殺技残り回数テキストを更新
+		specialAttackLabel.text=""+specialAttackCount;
 				
 				//必殺技が打てる状態なら技オブジェクト生成
-				if(specialAttackOk==true){
-						specialAttackOk=false;
-					specialAttack=(GameObject)Instantiate(specialAttackPre,transform.position,Quaternion.identity);
-            Rigidbody attackRigidbody = specialAttack.GetComponent<Rigidbody>();//プレファブのrigidbodyコンポーネントを取得
-            attackRigidbody.AddForce(transform.forward*300);
+				if(specialAttackCount>0 && !(PlayerPrefs.GetInt("BossExist")==1)){				specialAttackCount--;
+					specialAttackPos=transform.position;
+					specialAttackPos.z-=2;
+					specialAttack=(GameObject)Instantiate(specialAttackPre,specialAttackPos,Quaternion.identity);
+            		Rigidbody attackRigidbody = specialAttack.GetComponent<Rigidbody>();//プレファブのrigidbodyコンポーネントを取得
+            		attackRigidbody.AddForce(transform.forward*300);
+				}//必殺技が打てる状態なら
+			}//クリックしたら
+			
+			if(attacked==true){
+				//attacked=false;
+				del+=Time.deltaTime;
+				if(del<0.3f && sword.transform.rotation.x<80){//約0.3秒間ゆっくり剣を振る		
+				//引数は、回転の中心点、方向、角度を指定
+					sword.transform.RotateAround(swordPosBlock.transform.position, transform.right, 5);				
+					sword2.transform.RotateAround(swordPosBlock.transform.position, transform.right, 5);
 				}
-
-				}else{//剣を戻す処理
+				if(del>1 && del<1.3f){//剣を振り下ろした後に剣を戻す。
+					sword.transform.RotateAround(swordPosBlock.transform.position, transform.right, -5);
+					sword2.transform.RotateAround(swordPosBlock.transform.position, transform.right, -5);
+				}
+				if(del>=1.3f){
+				//フレーム時間を使ってるので、一回の攻撃を終えるたびに位置と角度を修正
+					sword.transform.position=new Vector3(1,0.7f,1.5f);
+					sword2.transform.position=new Vector3(-1,0.7f,1.5f);
+					sword.transform.rotation=Quaternion.Euler(0,0,0);
+					sword2.transform.rotation=Quaternion.Euler(0,0,0);
+				//剣を戻した後に剣の時間関係をリセットし、攻撃したこともリセット	
+					del=0;
 					attacked=false;
-					sword.transform.RotateAround(swordPosBlock.transform.position, transform.right, -45);	
-					sword2.transform.RotateAround(swordPosBlock.transform.position, transform.right, -45);	
-
 				}
+				
+		
 			}
 						
-			/*
-			//GetAxisで、上矢印キーなら1が返され、下矢印キーなら-1が返される。
-			if(Input.GetAxis("Vertical")>0.0f){
-			//moveDirection.z=Input.GetAxis("Vertical")*speedZ;//1*speedZでまっすぐのみ
-			moveDirection=Camera.main.transform.forward*speedZ;
-			}else if(Input.GetKey(KeyCode.DownArrow)){
-			moveDirection=Camera.main.transform.forward*-1*speedZ;
-			}else{//指を縦矢印キーから離れるたびに動きを止める。
-			moveDirection.x=0;
-			moveDirection.y=0;
-			moveDirection.z=0;
-			}
-			
-			//方向転換
-			transform.Rotate(0,Input.GetAxis("Horizontal")*3,0);//横方向の矢印キーが押されたらその方向にキャラクターを回転させる。
-			
-			//スペースキーが押されたらジャンプする処理
-			if(Input.GetKeyUp(KeyCode.Space)){
-				Debug.Log("スペースキーが押されたでござる");
-				moveDirection.y=speedJump;
-			}
-			
-			//渡された値によって実際に動かす
-			controller.SimpleMove(moveDirection);
-			*/
 	}//Update終わり
 	
 	//敵の武器が自分に衝突したら呼ばれる
 	void OnTriggerEnter(Collider other){
 
 		if(other.gameObject.tag=="enemyWeapon"){
-			Debug.Log("自分に敵の武器が当たったよ");
+			Debug.Log("ボスの武器に当たった");
+			//Debug.Log("自分に敵の武器が当たったよ");
 			gameController.hpController(1);
 		}
 	}
 	
-			//GameControllerクラスから呼ばれる。スコアが500毎に呼ばれる
-		public void SpecialAttackCounter(){
-				specialAttackOk=true;
-		}
 }

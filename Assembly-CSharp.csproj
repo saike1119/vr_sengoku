@@ -68,6 +68,7 @@
      <Compile Include="Assets\ProgressBar\Script\Utils.cs" />
      <Compile Include="Assets\Scripts\Clicker.cs" />
      <Compile Include="Assets\Scripts\DamageExperiment.cs" />
+     <Compile Include="Assets\Scripts\EffectController.cs" />
      <Compile Include="Assets\Scripts\EnemyBossController.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\EnemyController2.cs" />
@@ -76,10 +77,11 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\HeroController.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />
-     <Compile Include="Assets\Scripts\MovieOnUI.cs" />
      <Compile Include="Assets\Scripts\ResultController.cs" />
      <Compile Include="Assets\Scripts\SpecialAttackController.cs" />
      <Compile Include="Assets\Scripts\StartController.cs" />
+     <Compile Include="Assets\Scripts\SwordController.cs" />
+     <None Include="Assets\Ultra Emissive Particles Shader\Shaders\ParticleEmmissive.shader" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Elemental Free\Readme.txt" />

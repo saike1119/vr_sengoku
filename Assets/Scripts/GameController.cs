@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour {
 	private float damageEffect=0.0f;
 	
 	//スコアとHP用変数
-	private int score;
+	public int score;
 	public  int hp=4;
 	private float scoreAmount;
 	private float hpAmount;
@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour {
 	
 	//必殺技関連
 	public HeroController heroController;
+	public Text specialAttackLabel;
 	
 	//最終ボスが倒れたかどうかフラグ
 	public bool gameClear=false;
@@ -48,7 +49,8 @@ public class GameController : MonoBehaviour {
 		hpSave=hp;
 		//EnemyBossControllerでのボスが生成されたことを登録する処理で、ここでリセット
 		PlayerPrefs.SetInt("BossExist", 0);//キーに対する値を設定する
-		PlayerPrefs.Save();
+		PlayerPrefs.SetInt("Score", 0);//スコアを毎回リセット
+		PlayerPrefs.Save();			
 	}
 	
 	// Update is called once per frame
@@ -58,7 +60,7 @@ public class GameController : MonoBehaviour {
 		//ダメージエフェクト処理
 		if(!(hp==4)){//少しでもダメージを受けていたら少しずつ回復処理
 			del+=Time.deltaTime;
-			damageEffect-=del/2;//色の数値の部分を徐々に減らす
+			damageEffect-=del;//色の数値の部分を徐々に減らす(delを割ったりすれば回復の速さ調整可能)
 		//Debug.Log(damageEffect);
 		//画像の色と透明度の状態を常に更新
 		 damageImage.color=new Color(255.0f/255,255.0f/255,255.0f/255,damageEffect/255);
@@ -81,11 +83,9 @@ public class GameController : MonoBehaviour {
 		PlayerPrefs.Save();			
 			 SceneManager.LoadScene("ResultScene");
 			}
+			
 		
-		//スコアが500ポイント毎に必殺技許可関数を呼ぶ	
-		if(score%500==0 && !(score==0) && heroController.specialAttackOk==false){
-			heroController.SpecialAttackCounter();
-		}
+
 	/*
 		if(del>2){
 			del=0;
