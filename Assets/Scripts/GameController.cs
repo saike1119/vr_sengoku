@@ -41,6 +41,10 @@ public class GameController : MonoBehaviour {
 	//最終ボスが倒れたかどうかフラグ
 	public bool gameClear=false;
 	
+	//音声関連
+	AudioSource aud;
+	public AudioClip test;
+	
 	// Use this for initialization
 	void Start () {
 		//score=500;//必殺技がうまく機能してるか実験
@@ -50,7 +54,9 @@ public class GameController : MonoBehaviour {
 		//EnemyBossControllerでのボスが生成されたことを登録する処理で、ここでリセット
 		PlayerPrefs.SetInt("BossExist", 0);//キーに対する値を設定する
 		PlayerPrefs.SetInt("Score", 0);//スコアを毎回リセット
-		PlayerPrefs.Save();			
+		PlayerPrefs.Save();		
+		
+		aud=GetComponent<AudioSource>();	
 	}
 	
 	// Update is called once per frame
@@ -75,7 +81,10 @@ public class GameController : MonoBehaviour {
 		if(damageEffect>60 && damageEffect<=120) hp=1;
 		
 		//体力が0になったらResultシーンへ
-		if(hp==0) SceneManager.LoadScene("ResultScene");
+		if(hp==0) {
+			gameClear=true;
+			SceneManager.LoadScene("ResultScene");
+		}
 		
 		//敵を全て倒したらResultシーンへ
 		if(gameClear==true){
@@ -83,9 +92,6 @@ public class GameController : MonoBehaviour {
 		PlayerPrefs.Save();			
 			 SceneManager.LoadScene("ResultScene");
 			}
-			
-		
-
 	/*
 		if(del>2){
 			del=0;
@@ -129,6 +135,11 @@ public class GameController : MonoBehaviour {
 		//Hpの数値を更新(テキスト)
 		hpLabel.text=""+hp+"%";
 		*/
+		
+		//隠しコマンド
+		if(Input.GetKeyUp(KeyCode.Y)){
+			aud.PlayOneShot(test);
+		}
 	}//update
 	
 	//enemyControllerクラスから呼ばれる。スコアを加算していく

@@ -33,7 +33,7 @@ public class SpecialAttackController : MonoBehaviour {
 		
 		//ボスが生成されたタイミングでボスのコンポーネントを取得して処理を始めていく
 		if(PlayerPrefs.GetInt("BossExist")==1){
-		enemyBossController=GameObject.Find("enemyBoss(Clone)").GetComponent<EnemyBossController>();
+		enemyBossController=GameObject.Find("samuzai_animation_ok(Clone)").GetComponent<EnemyBossController>();
 
 
 		}

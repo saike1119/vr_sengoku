@@ -1,0 +1,66 @@
+Animated Samurai Warrior
+
+
+I used Character Studio 3D MAX to make animations.
+
+Asset can be imported and Used with Unity 4 Mechanim.
+
+Character has 38 animations. 
+
+Here you can find  animations preview: http://www.youtube.com/user/MycroSlonik#p/a/u/0/6KLHkQUX-OY
+
+Animation list:
+
+1) samurai_bow_combat_mode: 0 - 75 fr.,
+ 2) samurai_taking_arrow_fromBack: 76 - 126 fr.,
+ 3) samurai_charging_arrow: 127 - 162 fr.,
+ 4) samurai_aim: 163 - 263 fr.,
+ 5) samurai_shoting: 264 - 299 fr.,
+ 6) samurai_looking_around: 304 - 480 fr.,
+ 7) samurai_sword_out_01: 481 - 521 fr.,
+ 8) samurai_combat_mode: 522 - 572 fr.,
+ 9) samurai_backwards: 573 - 608 fr.,
+ 10) samurai_below_high_swing: 609 - 644 fr.,
+ 11) samurai_dodge_to_left: 645 - 680 fr.,
+ 12) samurai_dodge_to_right: 681 - 716 fr.,
+ 13) samurai_Hit_from_front: 717 - 752 fr.,
+ 14) samurai_moving_left: 753 - 773 fr.,
+ 15) samurai_moving_right: 774 - 794 fr.,
+ 16) samurai_parry_from_stright_down: 795 - 830 fr.,
+ 17) samurai_parry_mid_front: 831 - 866 fr.,
+ 18) samurai_parry_mid_left: 867 - 902 fr.,
+ 19) samurai_parry_mode: 907 - 957 fr.,
+ 20) samurai_specal_attack_A: 962 - 997 fr.,
+ 21) samurai_specal_attack_B: 998 - 1043 fr.,
+ 22) samurai_swing_high_straight_down: 1044 - 1079 fr.,
+ 23) samurai_swing_mid_left: 1080 - 1115 fr.,
+ 24) samurai_swing_mid_right: 1116 - 1151 fr.,
+ 25) samurai_thrust_mid: 1152 - 1187 fr.,
+ 26) samurai_ThrowingAxe: 1188 - 1223 fr.,
+ 27) samurai_ThrowingSpear: 1224 - 1259 fr.,
+ 28) samurai_ThrowingSuriken: 1260 - 1295 fr.,
+ 29) samurai_sword_back_01: 1296 - 1336 fr.,
+ 30) samurai_StandingFree: 1337 - 1437 fr.,
+ 31) samurai_talking: 1438 - 1483 fr.,
+ 32) samurai_use_object: 1484 - 1524 fr.,
+ 33) samurai_charging: 1529 - 1551 fr.,
+ 34) samurai_Run: 1556 - 1578 fr.,
+ 35) samurai_Jump_runing: 1583 - 1623 fr.,
+ 36) samurai_walk: 1628 - 1673 fr.,
+ 37) samurai_Climbing_ladder: 1678 - 1708 fr.,
+ 38) samurai_Dying: 1713 - 1778 fr.,
+
+
+
+Samurai model only  has 1,031 polygons 1,854 triangles and 962 vertexes. 
+With 2 bows, 7 arrows, 2 katans, spear, suriken and axe - 1,652 polygons, 3,016 triangles and 1,583 vertexes
+
+Textures: diffuse, specular, and normals maps. 
+Textures are TIF file format 2048x2048 - body and 512x512 - for weapons. 
+12 textures at all.
+
+If you have questions, please mail me: mr.necturus@gmail.com
+
+
+character, fantasy, guard, warrior, samurai, man, armor, polygonal, video game, wow, rpg, mmo, soldier, military, fps, army, bow, medieval, bushido, assassin, archer, Japan 
+

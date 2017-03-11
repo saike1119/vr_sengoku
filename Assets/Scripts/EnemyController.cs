@@ -22,7 +22,8 @@ public class EnemyController : MonoBehaviour {
 	
 	//Hp関連
 	public Slider hpSlider;
-	private float hp=2;//下のほうで、二回攻撃を受けたら消えるという処理をしてるので2と設定
+//下のほうで、二回攻撃を受けたら消えるという処理をしてるので2と設定	
+	private float hp=3;//100と109行目も値を変更する
 	
 	//プレイヤーの剣に攻撃された際のエフェクト処理
 	public GameObject effectPre;
@@ -31,6 +32,14 @@ public class EnemyController : MonoBehaviour {
 	
 	GameController gameController;//自分がやられたらスコアを他スクリプトに渡す
 	EnemyGenerator enemyGenerator;//自分がやられたら敵の残り数の表示を更新するため
+	
+	//アニメーション関連
+	Animator animator;
+	Animation anim;
+	private bool walked=false;
+	private bool attacked=false;
+	private bool dead=false;
+	private int ran;
 
 	// Use this for initialization
 	void Start () {
@@ -40,8 +49,15 @@ public class EnemyController : MonoBehaviour {
 		gameController=GameObject.Find("GameController").GetComponent<GameController>();
 		enemyGenerator=GameObject.Find("EnemyGenerator").GetComponent<EnemyGenerator>();
 		
+		//rigid=GetComponent<Rigidbody>();
+		
 		//Hpを最初はマックスにする
 		hpSlider.value=1;
+		
+		//アニメーション関連のコンポーネント取得
+		anim = gameObject.GetComponent<Animation> ();
+		animator = GetComponent<Animator>();
+		anim.Play("samurai_Run");//最初は走るアニメーション再生
 	}
 	
 		// Update is called once per frame
@@ -51,48 +67,55 @@ public class EnemyController : MonoBehaviour {
 		
 		//ターゲットの方に向く処理
 		transform.rotation=Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (target.transform.position - transform.position), 0.3f);//ターゲットの方に少しずつ向きが変わる
-		//ターゲットとの距離が近かった時の処理
-		 if(dif<1.5){
-        //Debug.Log("近いよ君！");
-        //定期的に剣で攻撃する処理
-        		del2+=Time.deltaTime;//〜秒ごとに攻撃するかを決めるため
-				if(del2>3){
-				del+=Time.deltaTime;//剣を振り始める時間や元に戻す時間の計算のため
-					if(del<0.3f && sword.transform.rotation.x<80){//約0.3秒間ゆっくり剣を振る		
-					//引数は、回転の中心点、方向、角度を指定
-						sword.transform.RotateAround(swordPosBlock.transform.position, transform.right, 5);				
-					}
-					if(del>1 && del<1.3f){//剣を振り下ろした後に剣を戻す。
-						sword.transform.RotateAround(swordPosBlock.transform.position, transform.right, -5);
-					}
-					if(del>=1.3f){
-					//フレーム時間を使ってるので、一回の攻撃を終えるたびに位置と角度を修正
-					//sword.transform.position=new Vector3(1.2f,0.3f,-1.0f);
-					//sword.transform.rotation=Quaternion.Euler(0,0,-20);
-					//剣を戻した後に剣の時間関係をリセットし、攻撃したこともリセット	
-						del=0;
-						del2=0;
-					}//剣を振り始める時間や元に戻す時間の計算のため
-				}//〜秒ごとに攻撃するかを決めるため
-
-        }else{//ターゲットがまだ遠かったらターゲットに近づく
-        transform.position += transform.forward *Time.deltaTime* speed;//ターゲットの方へ移動させる処理
-        }                
-        
+		//ターゲットから遠かったら移動する
+		if(transform.position.z>4){
+			transform.position += transform.forward *Time.deltaTime* speed;//前へ移動
+		}else{//ターゲットに近くなったら待機アニメーションスタート
+				del+=Time.deltaTime;//このタイミングで、下の攻撃のための時間計算
+				if(walked==false && dead==false){
+					walked=true;
+					anim.Play("samurai_bow_combat_mode");
+				}
+		}
+		//Debug.Log(del);
+		//剣で攻撃処理
+		if(del>5){//5秒になったら攻撃
+		if(attacked==false && dead==false){
+			ran=Random.Range(1,3);
+			if(ran==1){
+				anim.Play("samurai_specal_attack_A");
+			}else{
+				anim.Play("samurai_specal_attack_B");				
+			}
+			attacked=true;
+		}
+		}
+		//5秒で攻撃開始して、それにアニメーションの秒数を考慮した時間になったらリセット
+			if(del>6.5){
+			del=0;
+			}
+		//5秒以内なら待機アニメーションに戻る
+		if(del<5){
+			if(attacked==true && dead==false){
+				attacked=false;
+				anim.Play("samurai_bow_combat_mode");
+			}	
+		}
+		        
         //hp表示処理
-        hpSlider.value=hp/2;
-       
+        hpSlider.value=hp/3;
 	}//update
-
+	
 	//主人公の剣が当たったかどうか判定とその後の処理
 	void OnCollisionEnter(Collision other){
-		if(other.gameObject.tag=="sword"){
+		if(other.gameObject.tag=="sword" && dead==false){
+		anim.Play("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
 			hitCount++;
 			hp--;
-			if(hitCount==2){//2回攻撃されたら死亡
-				Destroy(gameObject);
-				gameController.scoreCounter(100);
-				enemyGenerator.enemyNumber--;//敵の数の値を減らす
+			if(hitCount==3){//3回攻撃されたら死亡
+				dead=true;
+				anim.Play("samurai_Dying");//死亡時のアニメーション再生
+				Invoke("DelayDestroyer",3.0f);
 			}
 			
 			//剣が当たった位置にエフェクトを発生させる
@@ -103,17 +126,28 @@ public class EnemyController : MonoBehaviour {
 		}//swordが当たった時の処理
 }
 
+//サイクロンに当たっているときは走るアニメーションはやめる
 void OnTriggerEnter(Collider other){
 	if(other.gameObject.tag=="cyclone"){
-		//Invoke("DelayDestroyer",6.0f);
+		Debug.Log("竜巻に当たっちまった");
+		dead=true;
+		anim.Play("samurai_Dying");//死亡時のアニメーション再生
+		Invoke("DelayDestroyer",5.0f);
 	}
 }
 
 void DelayDestroyer(){
 		Destroy(gameObject);//衝突した敵オブジェクトを破壊
+		gameController.scoreCounter(100);
 		enemyGenerator.enemyNumber--;//敵の数の値を減らす
 }
 
+//敵の数を減らさないバージョンの関数(剣で倒した時と必殺技で倒した時が重なることが多く、敵の数がマイナスになってしまうことが多いので、必殺技で倒した時は敵の数を減らさない)
+void DelayDestroyer2(){
+		Destroy(gameObject);//衝突した敵オブジェクトを破壊
+		gameController.scoreCounter(100);
+		//enemyGenerator.enemyNumber--;//敵の数の値を減らす
+}
 
 
 /*

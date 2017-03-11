@@ -8,16 +8,10 @@ public class EnemyBossController : MonoBehaviour {
 
 	//敵キャラ移動関連
 	GameObject target;
-	//public float speed;
-	//float dif;
+	public float speed;
 	
 	//剣で攻撃関連
-	public GameObject sword;
-	public GameObject swordPosBlock;
 	private float del;
-	private float del2;
-	public bool swordCollides;//剣と剣がぶつかったかどうか判定するため
-	
 	//必殺技関連
 	Rigidbody rigid;
 	public bool specialAttackHit=false;
@@ -33,7 +27,13 @@ public class EnemyBossController : MonoBehaviour {
 	
 	//Hp関連
 	public Slider hpSlider;
-	public float hp=300;//下のほうで、二回攻撃を受けたら消えるという処理をしてるので2と設定
+	public float hp=50;//下のほうで、二回攻撃を受けたら消えるという処理をしてるので2と設定
+	
+	//アニメーション関連
+	Animation anim;
+	private bool walked=false;
+	private bool attacked=false;
+	private bool dead=false;
 
 	// Use this for initialization
 	void Start () {
@@ -54,6 +54,10 @@ public class EnemyBossController : MonoBehaviour {
 		
 		//Hpを最初はマックスにする
 		hpSlider.value=1;
+		
+		//アニメーション関係
+		anim=GetComponent<Animation>();
+		anim.Play("Walk");//最初は歩くアニメーション再生
 
 	}
 	
@@ -62,37 +66,46 @@ public class EnemyBossController : MonoBehaviour {
 		//ターゲットに向く処理
 		transform.rotation=Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (target.transform.position - transform.position), 0.3f);//ターゲットの方に少しずつ向きが変わる
 		
+		//ターゲットから遠かったら移動する
+		if(transform.position.z>4){
+			transform.position += transform.forward *Time.deltaTime* speed;//前へ移動
+		}else{//ターゲットに近くなったら待機アニメーションスタート
+				del+=Time.deltaTime;//このタイミングで、下の攻撃のための時間計算
+				if(walked==false && dead==false){
+					walked=true;
+					anim.Play("idle");
+				}
+		}
+		//Debug.Log(del);
 		//剣で攻撃処理
-		del2+=Time.deltaTime;//〜秒ごとに攻撃するかを決めるため
-				if(del2>3){
-				del+=Time.deltaTime;//剣を振り始める時間や元に戻す時間の計算のため
-					if(del<0.3f && sword.transform.rotation.x<80){//約0.3秒間ゆっくり剣を振る		
-					//引数は、回転の中心点、方向、角度を指定
-						sword.transform.RotateAround(swordPosBlock.transform.position, transform.right, 5);				
-					}
-					if(del>1 && del<1.3f){//剣を振り下ろした後に剣を戻す。
-						sword.transform.RotateAround(swordPosBlock.transform.position, transform.right, -5);
-					}
-					if(del>=1.3f){
-					//フレーム時間を使ってるので、一回の攻撃を終えるたびに位置と角度を修正
-					//sword.transform.position=new Vector3(1.2f,0.3f,-1.0f);
-					//sword.transform.rotation=Quaternion.Euler(0,0,-20);
-					//剣を戻した後に剣の時間関係をリセットし、攻撃したこともリセット	
-						del=0;
-						del2=0;
-					}//剣を振り始める時間や元に戻す時間の計算のため
-				}//〜秒ごとに攻撃するかを決めるため
-		
+		if(del>3){//3秒になったら攻撃
+			if(attacked==false && dead==false){//死亡しても時間になったら攻撃するのを防ぐ
+				anim.Play("Attack");//3秒ごとに攻撃
+				attacked=true;
+			}
+		}
+		//3秒で攻撃開始して、それにアニメーションの秒数を考慮した時間になったらリセット
+			if(del>4.5){
+			del=0;
+			}
+		//3秒以内なら待機アニメーションに戻る
+		if(del<3){
+			if(attacked==true && dead==false){
+				attacked=false;
+			anim.Play("idle");		
+			}	
+		}
+			
 				
         //50回分の攻撃を受けたら死亡し、シーン遷移する
-			if(hitCount>=300){//300回攻撃されたら死亡
+			if(hitCount>=50){//50回攻撃されたら死亡
 				Destroy(gameObject);
 				gameController.scoreCounter(5000);
 				gameController.gameClear=true;
 			}
 			
 			//hp表示処理
-			hpSlider.value=hp/300;
+			hpSlider.value=hp/50;
 	}//update
 	
 		//必殺技に当たった時の処理
@@ -109,23 +122,19 @@ public class EnemyBossController : MonoBehaviour {
 		}
 
 		//剣で攻撃された時の処理
-		void OnTriggerEnter(Collider other) {
+		void OnCollisionEnter(Collision other) {
 			if(other.gameObject.tag=="sword"){
 			//Debug.Log("ボスが攻撃されてるで");
-			hitCount++;
-			hp--;
-			gameController.scoreCounter(10);//ボスが剣で切られるたびに少しスコア加算			
-		}	
-	}	
-	
-	//剣が敵に当たった際にはエフェクトを表示する
-	void OnCollisionEnter(Collision other){
-		if(other.gameObject.tag=="sword"){
 			//剣が当たった位置にエフェクトを発生させる
 			foreach (ContactPoint point in other.contacts) {
 				effectPos=(Vector3)point.point;
 				effect=(GameObject)Instantiate(effectPre,effectPos,Quaternion.identity);
 			}
+			hitCount++;
+			hp--;
+			gameController.scoreCounter(10);//ボスが剣で切られるたびに少しスコア加算			
 		}
-	}
+		
+	}	
+	
 }

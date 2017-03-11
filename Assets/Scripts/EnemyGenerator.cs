@@ -35,19 +35,19 @@ public class EnemyGenerator : MonoBehaviour {
 			PosZ=Random.Range(15,30);//-70から-80
 		
 			//敵の種類をランダムに
-			enemyType=Random.Range(0,enemyPre.Length);
-		
-			enemyPos=new Vector3(PosX,1,PosZ);
+			//enemyType=Random.Range(0,enemyPre.Length);
+			enemyType=0;
+			enemyPos=new Vector3(PosX,-1,PosZ);
 			effect=(GameObject)Instantiate(dark,enemyPos,Quaternion.identity);
 			generateCount++;
 			Invoke("GenerateLate",2.0f);
 			}//〜秒ごと
 			
 			//指定した数の雑魚キャラ全て倒したら、ボスを生成
-			if(enemyNumber==0 && bossNow==false){
+			if(enemyNumber<=0 && bossNow==false){
 				Debug.Log("ボスの出番やで");
 				bossNow=true;
-				enemyPos=new Vector3(0.5f,1,4);
+				enemyPos=new Vector3(0.5f,-1,15);//最終的には(0.5f,-1,3)がベスト
 				effect=(GameObject)Instantiate(dark,enemyPos,Quaternion.identity);
 				Invoke("GenerateLate",2.0f);
 			}
