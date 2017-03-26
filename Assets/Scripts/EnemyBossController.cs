@@ -34,6 +34,7 @@ public class EnemyBossController : MonoBehaviour {
 	private bool walked=false;
 	private bool attacked=false;
 	private bool dead=false;
+	public bool swordCollided=false;
 
 	// Use this for initialization
 	void Start () {
@@ -80,7 +81,7 @@ public class EnemyBossController : MonoBehaviour {
 		//剣で攻撃処理
 		if(del>3){//3秒になったら攻撃
 			if(attacked==false && dead==false){//死亡しても時間になったら攻撃するのを防ぐ
-				anim.Play("Attack");//3秒ごとに攻撃
+				anim.Play("samurai_backwards");//3秒ごとに攻撃
 				attacked=true;
 			}
 		}
@@ -121,7 +122,7 @@ public class EnemyBossController : MonoBehaviour {
 			gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 		}
 
-		//剣で攻撃された時の処理
+		//通常ダメージ処理。剣で攻撃された時の処理
 		void OnCollisionEnter(Collision other) {
 			if(other.gameObject.tag=="sword"){
 			//Debug.Log("ボスが攻撃されてるで");
@@ -136,5 +137,10 @@ public class EnemyBossController : MonoBehaviour {
 		}
 		
 	}	
+
+	//swordControllerから呼ばれる、剣と剣がぶつかったときに、ダメージと同じアニメーションを再生する
+	public void SwordCollided(){
+		//anim.Play("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
+	}
 	
 }

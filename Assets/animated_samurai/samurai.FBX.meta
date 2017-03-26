@@ -156,6 +156,8 @@ ModelImporter:
     2300026: spear
     2300028: suriken
     2300030: 'Throwing_Axe '
+    2300032: Group1
+    2300034: Long_bow_01
     3300000: arrow_00
     3300002: arrow_01
     3300004: arrow_02
@@ -172,6 +174,8 @@ ModelImporter:
     3300026: spear
     3300028: suriken
     3300030: 'Throwing_Axe '
+    3300032: Group1
+    3300034: Long_bow_01
     4300000: bone_bow
     4300002: Bow_animation_controller
     4300004: suriken
@@ -206,6 +210,8 @@ ModelImporter:
     6400026: spear
     6400028: suriken
     6400030: 'Throwing_Axe '
+    6400032: Group1
+    6400034: Long_bow_01
     7400000: samurai_bow_combat_mode
     7400002: samurai_taking_arrow_fromBack
     7400004: samurai_charging_arrow
@@ -1370,7 +1376,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 1

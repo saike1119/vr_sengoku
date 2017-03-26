@@ -71,7 +71,6 @@
      <Compile Include="Assets\Scripts\EffectController.cs" />
      <Compile Include="Assets\Scripts\EnemyBossController.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
-     <Compile Include="Assets\Scripts\EnemyController2.cs" />
      <Compile Include="Assets\Scripts\EnemyGenerator.cs" />
      <Compile Include="Assets\Scripts\FollowCamera.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
@@ -81,6 +80,7 @@
      <Compile Include="Assets\Scripts\SpecialAttackController.cs" />
      <Compile Include="Assets\Scripts\StartController.cs" />
      <Compile Include="Assets\Scripts\SwordController.cs" />
+     <Compile Include="Assets\Scripts\SwordController2.cs" />
      <None Include="Assets\Japanese Village Kit\Radme.txt" />
      <None Include="Assets\animated_samurai\samurai_notes.txt" />
      <None Include="Assets\Ultra Emissive Particles Shader\Shaders\ParticleEmmissive.shader" />

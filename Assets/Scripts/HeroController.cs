@@ -94,11 +94,11 @@ public class HeroController : MonoBehaviour {
 	
 
 	//敵の武器が自分に衝突したら呼ばれる
-	void OnTriggerEnter(Collider other){
+	void OnTriggerExit(Collider other){
 
 		if(other.gameObject.tag=="enemyWeapon"){
 			//Debug.Log(gameController.hp);
-			Debug.Log("ボスの武器に当たった");
+			Debug.Log("武器に当たった");
 			//Debug.Log("自分に敵の武器が当たったよ");
 			gameController.hpController(1);
 		}

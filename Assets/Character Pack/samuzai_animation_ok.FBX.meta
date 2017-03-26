@@ -190,6 +190,7 @@ ModelImporter:
     7400004: Run
     7400006: Jump
     7400008: Attack
+    9500000: //RootNode
     11100000: //RootNode
     13700000: Cylinder001
     13700002: Plane007
@@ -204,7 +205,11 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Samurai_Motion_120609(2)' has import animation
+      warnings that might lower retargeting quality:\n\t'Bip001 L Clavicle' has translation
+      animation that will be discarded.\n\t'Bip001 R Clavicle' has translation animation
+      that will be discarded.\n\t'Bip001 L Thigh' has translation animation that will
+      be discarded.\n\t'Bip001 R Thigh' has translation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
@@ -391,8 +396,8 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
-    hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasTranslationDoF: 1
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 1

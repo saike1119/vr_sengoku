@@ -14,9 +14,9 @@ public class EnemyController : MonoBehaviour {
 	//剣で攻撃関連
 	public GameObject sword;
 	public GameObject swordPosBlock;
+
 	private float del;
 	private float del2;
-	public bool swordCollides;//剣と剣がぶつかったかどうか判定するため
 		
 	private int hitCount=0;//倒れるまでの受ける攻撃回数
 	
@@ -39,6 +39,7 @@ public class EnemyController : MonoBehaviour {
 	private bool walked=false;
 	private bool attacked=false;
 	private bool dead=false;
+	public bool swordCollided=false;
 	private int ran;
 
 	// Use this for initialization
@@ -62,6 +63,7 @@ public class EnemyController : MonoBehaviour {
 	
 		// Update is called once per frame
 	void Update () {
+		Debug.Log (swordCollided);
         //ターゲットとある程度近くなったら止まって攻撃
         dif=transform.position.z-target.transform.position.z;
 		
@@ -106,23 +108,26 @@ public class EnemyController : MonoBehaviour {
         hpSlider.value=hp/3;
 	}//update
 	
-	//主人公の剣が当たったかどうか判定とその後の処理
+	//通常ダメージ処理。主人公の剣が当たったかどうか判定とその後の処理
 	void OnCollisionEnter(Collision other){
-		if(other.gameObject.tag=="sword" && dead==false){
-		anim.Play("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
-			hitCount++;
-			hp--;
-			if(hitCount==3){//3回攻撃されたら死亡
-				dead=true;
-				anim.Play("samurai_Dying");//死亡時のアニメーション再生
-				Invoke("DelayDestroyer",3.0f);
-			}
+		if(other.gameObject.tag=="sword" && dead==false){//相手の(主人公)の剣が当たった場合&死んでいない場足&剣と剣がぶつかった場合それは体ではないので処理しない
+			if (swordCollided == false) {//死んでもなくて剣と剣がぶつかってなかったら
+				anim.Play ("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
+				hitCount++;
+				hp--;
+				if (hitCount == 3) {//3回攻撃されたら死亡
+					dead = true;
+					anim.Play ("samurai_Dying");//死亡時のアニメーション再生
+					Invoke ("DelayDestroyer", 3.0f);
+				}
 			
-			//剣が当たった位置にエフェクトを発生させる
-			foreach (ContactPoint point in other.contacts) {
-				effectPos=(Vector3)point.point;
-				effect=(GameObject)Instantiate(effectPre,effectPos,Quaternion.identity);
+				//剣が当たった位置にエフェクトを発生させる
+				foreach (ContactPoint point in other.contacts) {
+					effectPos = (Vector3)point.point;
+					effect = (GameObject)Instantiate (effectPre, effectPos, Quaternion.identity);
+				}
 			}
+
 		}//swordが当たった時の処理
 }
 
@@ -148,6 +153,11 @@ void DelayDestroyer2(){
 		gameController.scoreCounter(100);
 		//enemyGenerator.enemyNumber--;//敵の数の値を減らす
 }
+	//swordControllerから呼ばれる、剣と剣がぶつかったときに、ダメージと同じアニメーションを再生する
+	public void SwordCollided(){
+		Debug.Log ("剣と剣が衝突した");
+		anim.Play("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
+	}
 
 
 /*
