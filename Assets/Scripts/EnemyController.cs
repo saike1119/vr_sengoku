@@ -34,11 +34,10 @@ public class EnemyController : MonoBehaviour {
 	EnemyGenerator enemyGenerator;//自分がやられたら敵の残り数の表示を更新するため
 	
 	//アニメーション関連
-	Animator animator;
 	Animation anim;
 	private bool walked=false;
 	private bool attacked=false;
-	private bool dead=false;
+	public bool dead=false;
 	public bool swordCollided=false;
 	private int ran;
 
@@ -57,7 +56,6 @@ public class EnemyController : MonoBehaviour {
 		
 		//アニメーション関連のコンポーネント取得
 		anim = gameObject.GetComponent<Animation> ();
-		animator = GetComponent<Animator>();
 		anim.Play("samurai_Run");//最初は走るアニメーション再生
 	}
 	

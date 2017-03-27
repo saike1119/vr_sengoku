@@ -5,9 +5,14 @@ using UnityEngine;
 public class SwordController2 : MonoBehaviour {
 	//剣と剣が衝突したよきに自分(敵)を押す処理のための
 	public EnemyBossController enemyBossController;
-	public GameObject effectPre;
 	Rigidbody rigid;
 	GameObject enemy;
+	
+	//剣と剣がぶつかったとき関連
+	public GameObject effectPre;
+	GameObject effect;
+	Vector3 effectPos;
+
 
 		
 	// Use this for initialization
@@ -18,11 +23,26 @@ public class SwordController2 : MonoBehaviour {
 	void Update () {
 		//Debug.Log(enemy.transform.position);
 	}
+	
+	void OnTriggerEnter(Collider other){
+		if (other.gameObject.tag == "sword") {//主人公の剣と自分(敵)の剣が衝突したときの処理
+			Debug.Log("剣と剣がぶつかった");
+			enemyBossController.SwordCollided();
+			enemyBossController.swordCollided = true;
+			effect=(GameObject)Instantiate(effectPre,transform.position,Quaternion.identity);
+		}
+	}
 
 	//剣と剣がぶつかったら、enemyControllerのアニメーションを再生する関数を呼びだす
 	void OnCollisionExit(Collision other){
 		if (other.gameObject.tag == "sword") {//主人公の剣と自分(敵)の剣が衝突したときの処理
 			enemyBossController.SwordCollided();
+		}
+	}
+	
+	void OnTriggerExit(Collider other){
+		if(enemyBossController.dead==false){
+		enemyBossController.swordCollided = false;
 		}
 	}
 }

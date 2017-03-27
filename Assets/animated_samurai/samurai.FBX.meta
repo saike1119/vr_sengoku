@@ -250,6 +250,7 @@ ModelImporter:
     7400070: samurai_walk
     7400072: samurai_Climbing_ladder
     7400074: samurai_Dying
+    9500000: //RootNode
     11100000: //RootNode
     13700000: Group1
     13700002: Long_bow_01
@@ -264,7 +265,15 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Samurai' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Bip01 Spine' has translation animation that
+      will be discarded.\n\t'Bip01 Spine2' is inbetween humanoid transforms and has
+      rotation animation that will be discarded.\n\t'Bip01 R ForeTwist1' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'Bip01
+      L ForeTwist1' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n\t'Bow_animation_controller' has translation animation that
+      will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1

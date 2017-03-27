@@ -30,10 +30,11 @@ public class EnemyBossController : MonoBehaviour {
 	public float hp=50;//下のほうで、二回攻撃を受けたら消えるという処理をしてるので2と設定
 	
 	//アニメーション関連
+	Animator animator;
 	Animation anim;
 	private bool walked=false;
 	private bool attacked=false;
-	private bool dead=false;
+	public bool dead=false;
 	public bool swordCollided=false;
 
 	// Use this for initialization
@@ -57,6 +58,7 @@ public class EnemyBossController : MonoBehaviour {
 		hpSlider.value=1;
 		
 		//アニメーション関係
+		animator=GetComponent<Animator>();
 		anim=GetComponent<Animation>();
 		anim.Play("Walk");//最初は歩くアニメーション再生
 
@@ -81,7 +83,8 @@ public class EnemyBossController : MonoBehaviour {
 		//剣で攻撃処理
 		if(del>3){//3秒になったら攻撃
 			if(attacked==false && dead==false){//死亡しても時間になったら攻撃するのを防ぐ
-				anim.Play("samurai_backwards");//3秒ごとに攻撃
+				//anim.Play("Attack");//3秒ごとに攻撃
+				anim.Play("samurai_Dying");
 				attacked=true;
 			}
 		}
@@ -125,18 +128,18 @@ public class EnemyBossController : MonoBehaviour {
 		//通常ダメージ処理。剣で攻撃された時の処理
 		void OnCollisionEnter(Collision other) {
 			if(other.gameObject.tag=="sword"){
-			//Debug.Log("ボスが攻撃されてるで");
-			//剣が当たった位置にエフェクトを発生させる
-			foreach (ContactPoint point in other.contacts) {
-				effectPos=(Vector3)point.point;
-				effect=(GameObject)Instantiate(effectPre,effectPos,Quaternion.identity);
+				if (swordCollided == false) {//死んでもなくて剣と剣がぶつかってなかったら
+					//剣が当たった位置にエフェクトを発生させる
+					foreach (ContactPoint point in other.contacts) {
+					effectPos=(Vector3)point.point;
+					effect=(GameObject)Instantiate(effectPre,effectPos,Quaternion.identity);
+					}
+				hitCount++;
+				hp--;
+				gameController.scoreCounter(10);//ボスが剣で切られるたびに少しスコア加算
 			}
-			hitCount++;
-			hp--;
-			gameController.scoreCounter(10);//ボスが剣で切られるたびに少しスコア加算			
 		}
-		
-	}	
+	}
 
 	//swordControllerから呼ばれる、剣と剣がぶつかったときに、ダメージと同じアニメーションを再生する
 	public void SwordCollided(){

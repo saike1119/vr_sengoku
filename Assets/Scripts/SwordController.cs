@@ -35,6 +35,8 @@ public class SwordController : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other){
+		if(enemyController.dead==false){
 		enemyController.swordCollided = false;
+		}
 	}
 }
