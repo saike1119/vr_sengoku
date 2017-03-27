@@ -60,7 +60,7 @@ public class EnemyBossController : MonoBehaviour {
 		//アニメーション関係
 		animator=GetComponent<Animator>();
 		anim=GetComponent<Animation>();
-		anim.Play("Walk");//最初は歩くアニメーション再生
+		//anim.Play("Walk");//最初は歩くアニメーション再生
 
 	}
 	
@@ -76,7 +76,7 @@ public class EnemyBossController : MonoBehaviour {
 				del+=Time.deltaTime;//このタイミングで、下の攻撃のための時間計算
 				if(walked==false && dead==false){
 					walked=true;
-					anim.Play("idle");
+					//anim.Play("idle");
 				}
 		}
 		//Debug.Log(del);
@@ -84,7 +84,7 @@ public class EnemyBossController : MonoBehaviour {
 		if(del>3){//3秒になったら攻撃
 			if(attacked==false && dead==false){//死亡しても時間になったら攻撃するのを防ぐ
 				//anim.Play("Attack");//3秒ごとに攻撃
-				anim.Play("samurai_Dying");
+				//anim.Play("samurai_Dying");
 				attacked=true;
 			}
 		}
@@ -96,7 +96,7 @@ public class EnemyBossController : MonoBehaviour {
 		if(del<3){
 			if(attacked==true && dead==false){
 				attacked=false;
-			anim.Play("idle");		
+			//anim.Play("idle");		
 			}	
 		}
 			
