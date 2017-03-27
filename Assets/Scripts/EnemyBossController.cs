@@ -77,14 +77,14 @@ public class EnemyBossController : MonoBehaviour {
 				if(walked==false && dead==false){
 					walked=true;
 					//anim.Play("idle");
+					animator.SetTrigger("idle");
 				}
 		}
 		//Debug.Log(del);
 		//剣で攻撃処理
 		if(del>3){//3秒になったら攻撃
 			if(attacked==false && dead==false){//死亡しても時間になったら攻撃するのを防ぐ
-				//anim.Play("Attack");//3秒ごとに攻撃
-				//anim.Play("samurai_Dying");
+				anim.Play("Attack");
 				attacked=true;
 			}
 		}
@@ -96,7 +96,7 @@ public class EnemyBossController : MonoBehaviour {
 		if(del<3){
 			if(attacked==true && dead==false){
 				attacked=false;
-			//anim.Play("idle");		
+			anim.Play("idle");		
 			}	
 		}
 			
