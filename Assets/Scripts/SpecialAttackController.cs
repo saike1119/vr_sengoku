@@ -50,7 +50,7 @@ public class SpecialAttackController : MonoBehaviour {
 			//Destroy(other.gameObject);//衝突した敵オブジェクトを破壊
 			//enemyGenerator.enemyNumber--;//敵の数の値を減らす
 		}
-		
+		/*
 		//必殺技に当たったのがボスの時の処理
 		if(other.gameObject.tag=="enemyBoss" && specialAttackHit==false){
 			specialAttackHit=true;
@@ -62,6 +62,7 @@ public class SpecialAttackController : MonoBehaviour {
 			Debug.Log("ヒーローの必殺技がボスに当たったで");
 			Invoke("NotAttack",1.0f);
 		}
+		*/
 	}
 	
 	//必殺技が当たっている最中の処理(敵を必殺技に吸い込むブラックホール的存在作成)

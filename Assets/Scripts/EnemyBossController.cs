@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class EnemyBossController : MonoBehaviour {
 	//CharacterController controller;
 
@@ -36,7 +36,8 @@ public class EnemyBossController : MonoBehaviour {
 	private bool attacked=false;
 	public bool dead=false;
 	public bool swordCollided=false;
-	private bool interval=true;//ボスが他のアニメーションを切り替える時に剣がプレイヤーの剣に当たってしまって永遠にダメージアニメーションが再生されてしまうので、その対策。剣を弾く場面はボスが攻撃する時しかないはずだから。
+	private bool swordCollidedOk=true;//ボスが他のアニメーションを切り替える時に剣がプレイヤーの剣に当たってしまって永遠にダメージアニメーションが再生されてしまうので、その対策。剣を弾く場面はボスが攻撃する時しかないはずだから。
+	private bool interval=false;//ボスが攻撃をする時だけ剣と剣を弾くアニメーションを再生するかを許可したが、その間に連続で剣と剣が衝突するとダメージアニメーションが連続で再生されてしまうのでインターバルを設ける
 	// Use this for initialization
 	void Start () {
 		//controller=GetComponent<CharacterController>();
@@ -64,7 +65,6 @@ public class EnemyBossController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(interval);
 		//ターゲットに向く処理
 		transform.rotation=Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (target.transform.position - transform.position), 0.3f);//ターゲットの方に少しずつ向きが変わる
 		
@@ -82,7 +82,7 @@ public class EnemyBossController : MonoBehaviour {
 		//剣で攻撃処理
 		if(del>3){//3秒になったら攻撃
 			if(attacked==false && dead==false){//死亡しても時間になったら攻撃するのを防ぐ
-				interval=false;//ボスの攻撃時に剣と剣衝突時アニメーション許可
+				swordCollidedOk=false;//ボスの攻撃時のみ剣と剣の衝突時アニメーション許可
 				animator.SetTrigger("Attack");
 				if(swordCollided==true) animator.SetTrigger("idle");//ボスが攻撃した時にプレイヤーが剣で防いだ場合、強制的にidleアニメーション再生して攻撃中止
 				attacked=true;
@@ -90,7 +90,7 @@ public class EnemyBossController : MonoBehaviour {
 		}
 		//3秒で攻撃開始して、それにアニメーションの秒数を考慮した時間になったらリセット
 			if(del>4.5){
-				interval=true;
+				swordCollidedOk=true;
 				del=0;
 			}
 		//3秒以内なら待機アニメーションに戻る
@@ -100,18 +100,12 @@ public class EnemyBossController : MonoBehaviour {
 			animator.SetTrigger("idle");		
 			}	
 		}
-			
-        //50回分の攻撃を受けたら死亡し、シーン遷移する
-			if(hitCount>=50){//50回攻撃されたら死亡
-				Destroy(gameObject);
-				gameController.scoreCounter(5000);
-				gameController.gameClear=true;
-			}
-			
+						
 			//hp表示処理
 			hpSlider.value=hp/50;
 	}//update
-	
+
+/*
 		//必殺技に当たった時の処理
 		public void ToBeAttacked(){//specialAttackControllerから呼ばれる
 			//Debug.Log("少し飛ばすで");
@@ -124,13 +118,21 @@ public class EnemyBossController : MonoBehaviour {
 			gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
 			gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 		}
-
+*/
 		//通常ダメージ処理。剣で攻撃された時の処理
 		void OnCollisionEnter(Collision other) {
-			if(other.gameObject.tag=="sword"){
+			if(other.gameObject.tag=="sword" && dead==false){
 				if (swordCollided == false) {//死んでもなくて剣と剣がぶつかってなかったら
+				if(hp>1){//ボスが死亡する前までは普通のダメージアニメーション再生など
 				animator.SetTrigger("Back");
-				Invoke("DelayIdle",1.0f);
+				Invoke("DelayIdle",0.5f);
+				Invoke("SetInterval",3.0f);
+				}else{//ボスが死亡する最後の一撃は、死亡アニメーション再生など
+					dead=true;
+					animator.SetTrigger("Dead");
+					Invoke("DelayDestroyer",4.0f);
+
+				}
 					//剣が当たった位置にエフェクトを発生させる
 					foreach (ContactPoint point in other.contacts) {
 					effectPos=(Vector3)point.point;
@@ -138,6 +140,7 @@ public class EnemyBossController : MonoBehaviour {
 					}
 				hitCount++;
 				hp--;
+				//hp-=100;//死亡アニメーション再生実験
 				gameController.scoreCounter(10);//ボスが剣で切られるたびに少しスコア加算
 			}
 		}
@@ -148,11 +151,24 @@ public class EnemyBossController : MonoBehaviour {
 		animator.SetTrigger("idle");
 	}
 	
+	void DelayDestroyer(){
+				Destroy(gameObject);
+				gameController.scoreCounter(5000);
+				gameController.gameClear=true;
+				SceneManager.LoadScene("ResultScene");		
+	}
+	
 	//swordControllerから呼ばれる、剣と剣がぶつかったときに、ダメージと同じアニメーションを再生する
 	public void SwordCollided(){
-		if(interval==false){
+		if(swordCollidedOk==false && interval==false){//ボスが攻撃した時だけ弾くアニメーションが再生
+			interval=true;
 			animator.SetTrigger("Back");
-			Invoke("DelayIdle",0.5f);
+			Invoke("DelayIdle",0.5f);//弾くアニメーションを再生したらすぐidleに戻す
+			Invoke("SetInterval",3.0f);
 		}
 	}	
+	
+	void SetInterval(){
+		interval=false;
+	}
 }

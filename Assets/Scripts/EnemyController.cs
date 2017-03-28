@@ -39,6 +39,8 @@ public class EnemyController : MonoBehaviour {
 	private bool attacked=false;
 	public bool dead=false;
 	public bool swordCollided=false;
+	private bool swordCollidedOk=true;
+	private bool interval=false;
 	private int ran;
 
 	// Use this for initialization
@@ -81,6 +83,7 @@ public class EnemyController : MonoBehaviour {
 		//剣で攻撃処理
 		if(del>5){//5秒になったら攻撃
 		if(attacked==false && dead==false){
+			swordCollidedOk=false;
 			ran=Random.Range(1,3);
 			if(ran==1){
 				anim.Play("samurai_specal_attack_A");
@@ -92,7 +95,8 @@ public class EnemyController : MonoBehaviour {
 		}
 		//5秒で攻撃開始して、それにアニメーションの秒数を考慮した時間になったらリセット
 			if(del>6.5){
-			del=0;
+				swordCollidedOk=true;
+				del=0;
 			}
 		//5秒以内なら待機アニメーションに戻る
 		if(del<5){
@@ -153,24 +157,14 @@ void DelayDestroyer2(){
 }
 	//swordControllerから呼ばれる、剣と剣がぶつかったときに、ダメージと同じアニメーションを再生する
 	public void SwordCollided(){
-		Debug.Log ("剣と剣が衝突した");
+		if(swordCollidedOk==false && interval==false){
+			interval=true;
 		anim.Play("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
+		Invoke("SetInterval",3.0f);
+		}
 	}
 
-
-/*
-//敵同士が近くてめり込みのを防ぐ
-void OnTriggerStay(Collider other){
-	rigid=other.GetComponent<Rigidbody>();
-	//味方が自分の左にいるならもう少し左に行ってもらう
-	if(transform.position.x>other.transform.position.x){
-	rigid.AddForce(transform.right*-100);
-	//味方が自分の右にいるならもう少し右に行ってもらう
-	}else{
-		rigid.AddForce(transform.right*100);
+	void SetInterval(){
+		interval=false;
 	}	
-}
-*/
-	
-	
 }
