@@ -36,7 +36,7 @@ public class EnemyBossController : MonoBehaviour {
 	private bool attacked=false;
 	public bool dead=false;
 	public bool swordCollided=false;
-
+	private bool interval=true;//ボスが他のアニメーションを切り替える時に剣がプレイヤーの剣に当たってしまって永遠にダメージアニメーションが再生されてしまうので、その対策。剣を弾く場面はボスが攻撃する時しかないはずだから。
 	// Use this for initialization
 	void Start () {
 		//controller=GetComponent<CharacterController>();
@@ -60,12 +60,11 @@ public class EnemyBossController : MonoBehaviour {
 		//アニメーション関係
 		animator=GetComponent<Animator>();
 		anim=GetComponent<Animation>();
-		//anim.Play("Walk");//最初は歩くアニメーション再生
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log(interval);
 		//ターゲットに向く処理
 		transform.rotation=Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (target.transform.position - transform.position), 0.3f);//ターゲットの方に少しずつ向きが変わる
 		
@@ -76,7 +75,6 @@ public class EnemyBossController : MonoBehaviour {
 				del+=Time.deltaTime;//このタイミングで、下の攻撃のための時間計算
 				if(walked==false && dead==false){
 					walked=true;
-					//anim.Play("idle");
 					animator.SetTrigger("idle");
 				}
 		}
@@ -84,23 +82,25 @@ public class EnemyBossController : MonoBehaviour {
 		//剣で攻撃処理
 		if(del>3){//3秒になったら攻撃
 			if(attacked==false && dead==false){//死亡しても時間になったら攻撃するのを防ぐ
-				anim.Play("Attack");
+				interval=false;//ボスの攻撃時に剣と剣衝突時アニメーション許可
+				animator.SetTrigger("Attack");
+				if(swordCollided==true) animator.SetTrigger("idle");//ボスが攻撃した時にプレイヤーが剣で防いだ場合、強制的にidleアニメーション再生して攻撃中止
 				attacked=true;
 			}
 		}
 		//3秒で攻撃開始して、それにアニメーションの秒数を考慮した時間になったらリセット
 			if(del>4.5){
-			del=0;
+				interval=true;
+				del=0;
 			}
 		//3秒以内なら待機アニメーションに戻る
 		if(del<3){
 			if(attacked==true && dead==false){
 				attacked=false;
-			anim.Play("idle");		
+			animator.SetTrigger("idle");		
 			}	
 		}
 			
-				
         //50回分の攻撃を受けたら死亡し、シーン遷移する
 			if(hitCount>=50){//50回攻撃されたら死亡
 				Destroy(gameObject);
@@ -129,6 +129,8 @@ public class EnemyBossController : MonoBehaviour {
 		void OnCollisionEnter(Collision other) {
 			if(other.gameObject.tag=="sword"){
 				if (swordCollided == false) {//死んでもなくて剣と剣がぶつかってなかったら
+				animator.SetTrigger("Back");
+				Invoke("DelayIdle",1.0f);
 					//剣が当たった位置にエフェクトを発生させる
 					foreach (ContactPoint point in other.contacts) {
 					effectPos=(Vector3)point.point;
@@ -140,10 +142,17 @@ public class EnemyBossController : MonoBehaviour {
 			}
 		}
 	}
-
-	//swordControllerから呼ばれる、剣と剣がぶつかったときに、ダメージと同じアニメーションを再生する
-	public void SwordCollided(){
-		//anim.Play("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
+	
+	//仰け反る(ダメージ時)アニメーションを再生した後すぐidleアニメーションを再生したい
+	void DelayIdle(){
+		animator.SetTrigger("idle");
 	}
 	
+	//swordControllerから呼ばれる、剣と剣がぶつかったときに、ダメージと同じアニメーションを再生する
+	public void SwordCollided(){
+		if(interval==false){
+			animator.SetTrigger("Back");
+			Invoke("DelayIdle",0.5f);
+		}
+	}	
 }

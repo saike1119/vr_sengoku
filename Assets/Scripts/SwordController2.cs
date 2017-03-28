@@ -11,7 +11,7 @@ public class SwordController2 : MonoBehaviour {
 	//剣と剣がぶつかったとき関連
 	public GameObject effectPre;
 	GameObject effect;
-	Vector3 effectPos;
+	Vector3 effectPos=new Vector3(0,3,2);
 
 
 		
@@ -29,17 +29,10 @@ public class SwordController2 : MonoBehaviour {
 			Debug.Log("剣と剣がぶつかった");
 			enemyBossController.SwordCollided();
 			enemyBossController.swordCollided = true;
-			effect=(GameObject)Instantiate(effectPre,transform.position,Quaternion.identity);
+			effect=(GameObject)Instantiate(effectPre,effectPos,Quaternion.identity);
 		}
 	}
-
-	//剣と剣がぶつかったら、enemyControllerのアニメーションを再生する関数を呼びだす
-	void OnCollisionExit(Collision other){
-		if (other.gameObject.tag == "sword") {//主人公の剣と自分(敵)の剣が衝突したときの処理
-			enemyBossController.SwordCollided();
-		}
-	}
-	
+		
 	void OnTriggerExit(Collider other){
 		if(enemyBossController.dead==false){
 		enemyBossController.swordCollided = false;
