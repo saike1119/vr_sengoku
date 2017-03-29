@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour {
 	//Hp関連
 	public Slider hpSlider;
 //下のほうで、二回攻撃を受けたら消えるという処理をしてるので2と設定	
-	private float hp=3;//100と109行目も値を変更する
+	private float hp=6;//115行目も値を変更する
 	
 	//プレイヤーの剣に攻撃された際のエフェクト処理
 	public GameObject effectPre;
@@ -34,6 +34,7 @@ public class EnemyController : MonoBehaviour {
 	EnemyGenerator enemyGenerator;//自分がやられたら敵の残り数の表示を更新するため
 	
 	//アニメーション関連
+	Animator animator;
 	Animation anim;
 	private bool walked=false;
 	private bool attacked=false;
@@ -57,8 +58,8 @@ public class EnemyController : MonoBehaviour {
 		hpSlider.value=1;
 		
 		//アニメーション関連のコンポーネント取得
+		animator=GetComponent<Animator>();
 		anim = gameObject.GetComponent<Animation> ();
-		anim.Play("samurai_Run");//最初は走るアニメーション再生
 	}
 	
 		// Update is called once per frame
@@ -76,7 +77,8 @@ public class EnemyController : MonoBehaviour {
 				del+=Time.deltaTime;//このタイミングで、下の攻撃のための時間計算
 				if(walked==false && dead==false){
 					walked=true;
-					anim.Play("samurai_bow_combat_mode");
+					//anim.Play("samurai_bow_combat_mode");
+					animator.SetTrigger("idle");
 				}
 		}
 		//Debug.Log(del);
@@ -86,9 +88,11 @@ public class EnemyController : MonoBehaviour {
 			swordCollidedOk=false;
 			ran=Random.Range(1,3);
 			if(ran==1){
-				anim.Play("samurai_specal_attack_A");
+				//anim.Play("samurai_specal_attack_A");
+				animator.SetTrigger("Attack");
 			}else{
-				anim.Play("samurai_specal_attack_B");				
+				//anim.Play("samurai_specal_attack_B");	
+				animator.SetTrigger("Attack2");			
 			}
 			attacked=true;
 		}
@@ -102,26 +106,32 @@ public class EnemyController : MonoBehaviour {
 		if(del<5){
 			if(attacked==true && dead==false){
 				attacked=false;
-				anim.Play("samurai_bow_combat_mode");
+				//anim.Play("samurai_bow_combat_mode");
+				animator.SetTrigger("idle");
 			}	
 		}
 		        
         //hp表示処理
-        hpSlider.value=hp/3;
+        hpSlider.value=hp/6;
 	}//update
 	
 	//通常ダメージ処理。主人公の剣が当たったかどうか判定とその後の処理
 	void OnCollisionEnter(Collision other){
 		if(other.gameObject.tag=="sword" && dead==false){//相手の(主人公)の剣が当たった場合&死んでいない場足&剣と剣がぶつかった場合それは体ではないので処理しない
 			if (swordCollided == false) {//死んでもなくて剣と剣がぶつかってなかったら
-				anim.Play ("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
+				//anim.Play ("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
+				if(hp>1){
+				animator.SetTrigger("Back");
+				Invoke("DelayIdle",0.5f);
+				Invoke("SetInterval",3.0f);
+				}else{
+					dead = true;
+					//anim.Play ("samurai_Dying");//死亡時のアニメーション再生
+					animator.SetTrigger("Dead");
+					Invoke ("DelayDestroyer", 3.0f);					
+				}
 				hitCount++;
 				hp--;
-				if (hitCount == 3) {//3回攻撃されたら死亡
-					dead = true;
-					anim.Play ("samurai_Dying");//死亡時のアニメーション再生
-					Invoke ("DelayDestroyer", 3.0f);
-				}
 			
 				//剣が当たった位置にエフェクトを発生させる
 				foreach (ContactPoint point in other.contacts) {
@@ -138,7 +148,8 @@ void OnTriggerEnter(Collider other){
 	if(other.gameObject.tag=="cyclone"){
 		Debug.Log("竜巻に当たっちまった");
 		dead=true;
-		anim.Play("samurai_Dying");//死亡時のアニメーション再生
+		//anim.Play("samurai_Dying");//死亡時のアニメーション再生
+		animator.SetTrigger("Dead");
 		Invoke("DelayDestroyer",5.0f);
 	}
 }
@@ -159,9 +170,16 @@ void DelayDestroyer2(){
 	public void SwordCollided(){
 		if(swordCollidedOk==false && interval==false){
 			interval=true;
-		anim.Play("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
+		//anim.Play("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
+		animator.SetTrigger("Back");
+		Invoke("DelayIdle",0.5f);//弾くアニメーションを再生したらすぐidleに戻す
 		Invoke("SetInterval",3.0f);
 		}
+	}
+	
+	//仰け反る(ダメージ時)アニメーションを再生した後すぐidleアニメーションを再生したい
+	void DelayIdle(){
+		animator.SetTrigger("idle");
 	}
 
 	void SetInterval(){
