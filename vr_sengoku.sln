@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vr_sengoku", "Assembly-CSha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vr_sengoku", "Assembly-CSharp-Editor.csproj", "{B02BFAE6-1AC5-68E0-D1A1-8FBEFBAD3FE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vr_sengoku", "Assembly-UnityScript.unityproj", "{C6875BBB-DBFA-9781-5617-0CF0AA5938EF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,10 +31,6 @@ Global
 		{B02BFAE6-1AC5-68E0-D1A1-8FBEFBAD3FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B02BFAE6-1AC5-68E0-D1A1-8FBEFBAD3FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B02BFAE6-1AC5-68E0-D1A1-8FBEFBAD3FE6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6875BBB-DBFA-9781-5617-0CF0AA5938EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6875BBB-DBFA-9781-5617-0CF0AA5938EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6875BBB-DBFA-9781-5617-0CF0AA5938EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6875BBB-DBFA-9781-5617-0CF0AA5938EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
