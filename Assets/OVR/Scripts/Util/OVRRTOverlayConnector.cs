@@ -55,21 +55,11 @@ public class OVRRTOverlayConnector : MonoBehaviour
 	/// </summary>
 	public GameObject ovrOverlayObj;
 	private RenderTexture srcRT;
-	private Camera ownerCamera;
-
+	private Camera ownerCamera;
+
 	/// <summary>
-	///  Reconstruct render texture chain if ownerCamera's targetTexture was changed
+	/// Triple buffer the textures applying to overlay
 	/// </summary>
-	public void RefreshRenderTextureChain()
-	{
-		srcRT = ownerCamera.targetTexture;
-		Debug.Assert(srcRT);
-		ConstructRenderTextureChain();
-	}
-
-/// <summary>
-/// Triple buffer the textures applying to overlay
-/// </summary>
 	void ConstructRenderTextureChain()
 	{
 		for (int i = 0; i < overlayRTChainSize; i++)

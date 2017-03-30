@@ -1,14 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\OvrAvatar\Scripts\OvrAvatarHand.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Grab.cs">
     <Files>
-      <File FileName="Assets\Scripts\HeroController.cs" Line="46" Column="13" />
-      <File FileName="Assets\Scripts\EnemyController.cs" Line="115" Column="29" />
+      <File FileName="Assets\Scripts\HeroController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\EnemyController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\EnemyBossController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SwordController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SwordController2.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\EffectController.cs" Line="1" Column="1" />
-      <File FileName="Assets\OvrAvatar\Scripts\OvrAvatarHand.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TouchController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Grab.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

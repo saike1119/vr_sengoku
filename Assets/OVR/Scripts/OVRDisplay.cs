@@ -115,21 +115,23 @@ public class OVRDisplay
 			if (!OVRManager.isHmdPresent)
 				return Vector3.zero;
 
-			return OVRPlugin.GetNodeAcceleration(OVRPlugin.Node.None, OVRPlugin.Step.Render).FromFlippedZVector3f();
+            OVRPose ret = OVRPlugin.GetEyeAcceleration(OVRPlugin.Eye.None).ToOVRPose();
+            return ret.position;
 		}
 	}
 
     /// <summary>
     /// Gets the current angular acceleration of the head.
     /// </summary>
-    public Vector3 angularAcceleration
+    public Quaternion angularAcceleration
     {
         get
         {
             if (!OVRManager.isHmdPresent)
-				return Vector3.zero;
+                return Quaternion.identity;
 
-			return OVRPlugin.GetNodeAngularAcceleration(OVRPlugin.Node.None, OVRPlugin.Step.Render).FromFlippedZVector3f() * Mathf.Rad2Deg;
+            OVRPose ret = OVRPlugin.GetEyeAcceleration(OVRPlugin.Eye.None).ToOVRPose();
+            return ret.orientation;
         }
     }
 
@@ -143,20 +145,22 @@ public class OVRDisplay
             if (!OVRManager.isHmdPresent)
                 return Vector3.zero;
 
-			return OVRPlugin.GetNodeVelocity(OVRPlugin.Node.None, OVRPlugin.Step.Render).FromFlippedZVector3f();
+            OVRPose ret = OVRPlugin.GetEyeVelocity(OVRPlugin.Eye.None).ToOVRPose();
+            return ret.position;
         }
     }
 	
 	/// <summary>
 	/// Gets the current angular velocity of the head.
 	/// </summary>
-	public Vector3 angularVelocity
+	public Quaternion angularVelocity
 	{
 		get {
 			if (!OVRManager.isHmdPresent)
-				return Vector3.zero;
+				return Quaternion.identity;
 
-			return OVRPlugin.GetNodeAngularVelocity(OVRPlugin.Node.None, OVRPlugin.Step.Render).FromFlippedZVector3f() * Mathf.Rad2Deg;
+			OVRPose ret = OVRPlugin.GetEyeVelocity(OVRPlugin.Eye.None).ToOVRPose();
+			return ret.orientation;
 		}
 	}
 
@@ -192,20 +196,6 @@ public class OVRDisplay
             }
 
             return ret;
-		}
-	}
-
-	/// <summary>
-	/// Gets application's frame rate reported by oculus plugin
-	/// </summary>
-	public float appFramerate
-	{
-		get
-		{
-			if (!OVRManager.isHmdPresent)
-				return 0;
-
-			return OVRPlugin.GetAppFramerate();
 		}
 	}
 
