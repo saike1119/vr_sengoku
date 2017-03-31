@@ -38,6 +38,11 @@ public class EnemyBossController : MonoBehaviour {
 	public bool swordCollided=false;
 	private bool swordCollidedOk=true;//ボスが他のアニメーションを切り替える時に剣がプレイヤーの剣に当たってしまって永遠にダメージアニメーションが再生されてしまうので、その対策。剣を弾く場面はボスが攻撃する時しかないはずだから。
 	private bool interval=false;//ボスが攻撃をする時だけ剣と剣を弾くアニメーションを再生するかを許可したが、その間に連続で剣と剣が衝突するとダメージアニメーションが連続で再生されてしまうのでインターバルを設ける
+	
+	//音声関連
+	AudioSource aud;
+	public AudioClip[] se;
+
 	// Use this for initialization
 	void Start () {
 		//controller=GetComponent<CharacterController>();
@@ -61,6 +66,10 @@ public class EnemyBossController : MonoBehaviour {
 		//アニメーション関係
 		animator=GetComponent<Animator>();
 		anim=GetComponent<Animation>();
+		
+		//音声のコンポーネント取得
+		aud=GetComponent<AudioSource>();
+
 	}
 	
 	// Update is called once per frame
@@ -124,6 +133,7 @@ public class EnemyBossController : MonoBehaviour {
 			if(other.gameObject.tag=="sword" && dead==false){
 				if (swordCollided == false) {//死んでもなくて剣と剣がぶつかってなかったら
 				if(hp>1){//ボスが死亡する前までは普通のダメージアニメーション再生など
+				aud.PlayOneShot(se[0]);
 				animator.SetTrigger("Back");
 				Invoke("DelayIdle",0.5f);
 				Invoke("SetInterval",3.0f);

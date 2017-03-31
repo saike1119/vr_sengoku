@@ -43,6 +43,10 @@ public class EnemyController : MonoBehaviour {
 	private bool swordCollidedOk=true;
 	private bool interval=false;
 	private int ran;
+	
+	//音声関連
+	AudioSource aud;
+	public AudioClip[] se;
 
 	// Use this for initialization
 	void Start () {
@@ -60,6 +64,9 @@ public class EnemyController : MonoBehaviour {
 		//アニメーション関連のコンポーネント取得
 		animator=GetComponent<Animator>();
 		anim = gameObject.GetComponent<Animation> ();
+		
+		//音声のコンポーネント取得
+		aud=GetComponent<AudioSource>();
 	}
 	
 		// Update is called once per frame
@@ -121,9 +128,10 @@ public class EnemyController : MonoBehaviour {
 			if (swordCollided == false) {//死んでもなくて剣と剣がぶつかってなかったら
 				//anim.Play ("samurai_backwards");//ダメージを受けたみたいなアニメーション再生
 				if(hp>1){
-				animator.SetTrigger("Back");
-				Invoke("DelayIdle",0.5f);
-				Invoke("SetInterval",3.0f);
+					aud.PlayOneShot(se[3]);//剣で切られた時の音声再生
+					animator.SetTrigger("Back");
+					Invoke("DelayIdle",0.5f);
+					Invoke("SetInterval",3.0f);
 				}else{
 					dead = true;
 					//anim.Play ("samurai_Dying");//死亡時のアニメーション再生

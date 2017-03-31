@@ -14,9 +14,14 @@ public class SwordController : MonoBehaviour {
 	Rigidbody rigid;
 	GameObject enemy;
 
+	//音声関連
+	AudioSource aud;
+	public AudioClip[] se;
 		
 	// Use this for initialization
 	void Start () {
+		//音声のコンポーネント取得
+		aud=GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -28,6 +33,7 @@ public class SwordController : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.tag == "sword") {//主人公の剣と自分(敵)の剣が衝突したときの処理
 			Debug.Log("剣と剣がぶつかった");
+			aud.PlayOneShot(se[0]);
 			enemyController.SwordCollided();
 			enemyController.swordCollided = true;
 			effect=(GameObject)Instantiate(effectPre,transform.position,Quaternion.identity);

@@ -31,10 +31,19 @@ public class HeroController : MonoBehaviour {
 	Vector3 specialAttackPos;//必殺技を生成する位置(少し後ろから生成したいので)
 	public int specialAttackCount=0;//必殺技残り回数
 	public Text specialAttackLabel;//必殺技残り回数ラベル
+	
+	//音声関連
+	AudioSource aud;
+	public AudioClip[] se;
+
 	// Use this for initialization
 	void Start () {
 		//controller=GetComponent<CharacterController>();
 		specialAttackLabel.text=""+specialAttackCount;
+		
+		//音声のコンポーネント取得
+		aud=GetComponent<AudioSource>();
+
 	}
 	
 	// Update is called once per frame
@@ -97,9 +106,8 @@ public class HeroController : MonoBehaviour {
 	void OnTriggerExit(Collider other){
 
 		if(other.gameObject.tag=="enemyWeapon"){
-			//Debug.Log(gameController.hp);
-			Debug.Log("武器に当たった");
 			//Debug.Log("自分に敵の武器が当たったよ");
+			aud.PlayOneShot(se[0]);
 			gameController.hpController(1);
 		}
 	}
