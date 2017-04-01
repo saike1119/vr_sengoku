@@ -83,14 +83,14 @@ public class GameController : MonoBehaviour {
 		//体力が0になったらResultシーンへ
 		if(hp==0) {
 			gameClear=true;
-			SceneManager.LoadScene("ResultScene");
+			SceneManager.LoadScene("LoseScene");
 		}
 		
 		//敵を全て倒したらResultシーンへ
 		if(gameClear==true){
 		PlayerPrefs.SetInt("Score", score);//キーに対する値を設定する
 		PlayerPrefs.Save();			
-			 SceneManager.LoadScene("ResultScene");
+			 SceneManager.LoadScene("WinScene");
 			}
 	/*
 		if(del>2){
