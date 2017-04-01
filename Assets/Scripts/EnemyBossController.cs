@@ -27,7 +27,7 @@ public class EnemyBossController : MonoBehaviour {
 	
 	//Hp関連
 	public Slider hpSlider;
-	public float hp=50;//下のほうで、二回攻撃を受けたら消えるという処理をしてるので2と設定
+	public float hp=100;//下のほうで、二回攻撃を受けたら消えるという処理をしてるので2と設定
 	
 	//アニメーション関連
 	Animator animator;
@@ -78,7 +78,7 @@ public class EnemyBossController : MonoBehaviour {
 		transform.rotation=Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (target.transform.position - transform.position), 0.3f);//ターゲットの方に少しずつ向きが変わる
 		
 		//ターゲットから遠かったら移動する
-		if(transform.position.z>6){
+		if(transform.position.z>2.5){
 			transform.position += transform.forward *Time.deltaTime* speed;//前へ移動
 		}else{//ターゲットに近くなったら待機アニメーションスタート
 				del+=Time.deltaTime;//このタイミングで、下の攻撃のための時間計算
@@ -111,7 +111,7 @@ public class EnemyBossController : MonoBehaviour {
 		}
 						
 			//hp表示処理
-			hpSlider.value=hp/50;
+			hpSlider.value=hp/100;
 	}//update
 
 /*

@@ -28,7 +28,7 @@ public class EnemyGenerator : MonoBehaviour {
 		//Debug.Log(enemyNumber);
 		del+=Time.deltaTime;
 		//3秒ごとに生成、生成すると決めた数と生成した数が一致しない間
-			if(del>3 && !(enemyNumberSave==generateCount)){
+			if(del>1 && !(enemyNumberSave==generateCount)){
 			del=0;
 			//敵の生成位置をランダムに生成
 			PosX=Random.Range(-16,25);//-170から-120まで
