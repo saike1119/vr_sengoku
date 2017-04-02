@@ -20,6 +20,7 @@ public class HeroController : MonoBehaviour {
 	private float del;
 	
 	private bool attacked=false;//剣の振ったのか振っていないのか確かめるため
+	public bool dead=false;
 	
 	//カメラの向きと体全体の向きを合わせるためのターゲットオブジェクト
 	public GameObject target;
@@ -35,6 +36,7 @@ public class HeroController : MonoBehaviour {
 	//音声関連
 	AudioSource aud;
 	public AudioClip[] se;
+	
 
 	// Use this for initialization
 	void Start () {
@@ -98,7 +100,7 @@ public class HeroController : MonoBehaviour {
 				
 		
 			}
-						
+			
 	}//Update終わり
 	
 

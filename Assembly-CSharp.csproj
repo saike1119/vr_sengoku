@@ -142,6 +142,7 @@
      <Compile Include="Assets\Scripts\Bullet.cs" />
      <Compile Include="Assets\Scripts\Clicker.cs" />
      <Compile Include="Assets\Scripts\DamageExperiment.cs" />
+     <Compile Include="Assets\Scripts\DeadContrlller.cs" />
      <Compile Include="Assets\Scripts\EffectController.cs" />
      <Compile Include="Assets\Scripts\EnemyBossController.cs" />
      <Compile Include="Assets\Scripts\EnemyBox.cs" />

@@ -181,7 +181,6 @@ public class EnemyBossController : MonoBehaviour {
 				//Destroy(gameObject);
 				gameController.scoreCounter(5000);
 				gameController.gameClear=true;//GameControllerの方でシーン遷移するため
-				//SceneManager.LoadScene("ResultScene");
 	}
 	
 	//swordControllerから呼ばれる、剣と剣がぶつかったときに、ダメージと同じアニメーションを再生する

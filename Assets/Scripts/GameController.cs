@@ -67,7 +67,9 @@ public class GameController : MonoBehaviour {
 		//ダメージエフェクト処理
 		if(!(hp==4)){//少しでもダメージを受けていたら少しずつ回復処理
 			del+=Time.deltaTime;
+			if(heroController.dead==false){
 			damageEffect-=del;//色の数値の部分を徐々に減らす(delを割ったりすれば回復の速さ調整可能)
+			}
 		//Debug.Log(damageEffect);
 		//画像の色と透明度の状態を常に更新
 		 damageImage.color=new Color(255.0f/255,255.0f/255,255.0f/255,damageEffect/255);
@@ -82,9 +84,9 @@ public class GameController : MonoBehaviour {
 		if(damageEffect>60 && damageEffect<=120) hp=1;
 		
 		//体力が0になったらLoseシーンへ
-		if(hp==0) {
+		if(hp<=0) {
 			//gameClear=true;
-			SceneManager.LoadScene("LoseScene");
+			Invoke("DelayMoveScene",3);
 		}
 		
 		//敵を全て倒したらWinシーンへ
@@ -152,7 +154,7 @@ public class GameController : MonoBehaviour {
 	
 	//プレイヤーが死亡した時、少し時間を設けてからシーン遷移したいので
 	void DelayMoveScene(){
-		
+			SceneManager.LoadScene("LoseScene");		
 	}
 	
 	//BGMをループするための処理
