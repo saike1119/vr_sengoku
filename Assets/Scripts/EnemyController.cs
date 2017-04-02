@@ -67,6 +67,7 @@ public class EnemyController : MonoBehaviour {
 		
 		//音声のコンポーネント取得
 		aud=GetComponent<AudioSource>();
+		aud.PlayOneShot(se[0]);
 	}
 	
 		// Update is called once per frame

@@ -140,7 +140,7 @@ public class EnemyBossController : MonoBehaviour {
 				}else{//ボスが死亡する最後の一撃は、死亡アニメーション再生など
 					dead=true;
 					animator.SetTrigger("Dead");
-					Invoke("DelayDestroyer",4.0f);
+					Invoke("DelayAudio",4.0f);
 
 				}
 					//剣が当たった位置にエフェクトを発生させる
@@ -161,11 +161,17 @@ public class EnemyBossController : MonoBehaviour {
 		animator.SetTrigger("idle");
 	}
 	
+	void DelayAudio(){
+		//勝利決定時の音声を再生してからオブジェクト削除とシーン遷移
+		aud.PlayOneShot(se[1]);
+		Invoke("DelayDestroyer",6);
+	}
+	
 	void DelayDestroyer(){
-				Destroy(gameObject);
+				//Destroy(gameObject);
 				gameController.scoreCounter(5000);
-				gameController.gameClear=true;
-				SceneManager.LoadScene("ResultScene");		
+				gameController.gameClear=true;//GameControllerの方でシーン遷移するため
+				//SceneManager.LoadScene("ResultScene");
 	}
 	
 	//swordControllerから呼ばれる、剣と剣がぶつかったときに、ダメージと同じアニメーションを再生する
