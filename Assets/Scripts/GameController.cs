@@ -99,8 +99,7 @@ public class GameController : MonoBehaviour {
 		//ボス戦になったらボスBGM再生
 		if(enemyGenerator.bossNow==true && onlyOnce==false){
 			onlyOnce=true;
-			 aud.PlayOneShot(se[1]);
-			 Invoke("LoopAudio",183);
+			 //aud.PlayOneShot(se[1]);
 			}
 	/*
 		if(del>2){
@@ -157,11 +156,6 @@ public class GameController : MonoBehaviour {
 			SceneManager.LoadScene("LoseScene");		
 	}
 	
-	//BGMをループするための処理
-	void LoopAudio(){
-		aud.PlayOneShot(se[1]);
-		Invoke("LoopAudio",183);//2回目以降はここだけでループ
-	}
 	
 	//enemyControllerクラスから呼ばれる。スコアを加算していく
 	public void scoreCounter(int point){
