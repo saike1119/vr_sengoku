@@ -11,9 +11,6 @@ public class EnemyController : MonoBehaviour {
 	//CharacterController controller;
 	//Rigidbody rigid;
 	
-	//剣で攻撃関連
-	public GameObject sword;
-	public GameObject swordPosBlock;
 
 	private float del;
 	private float del2;
@@ -137,6 +134,7 @@ public class EnemyController : MonoBehaviour {
 					dead = true;
 					//anim.Play ("samurai_Dying");//死亡時のアニメーション再生
 					animator.SetTrigger("Dead");
+					Invoke("DelayDeadAudio",1.8f);
 					Invoke ("DelayDestroyer", 3.0f);					
 				}
 				hitCount++;
@@ -169,12 +167,10 @@ void DelayDestroyer(){
 		enemyGenerator.enemyNumber--;//敵の数の値を減らす
 }
 
-//敵の数を減らさないバージョンの関数(剣で倒した時と必殺技で倒した時が重なることが多く、敵の数がマイナスになってしまうことが多いので、必殺技で倒した時は敵の数を減らさない)
-void DelayDestroyer2(){
-		Destroy(gameObject);//衝突した敵オブジェクトを破壊
-		gameController.scoreCounter(100);
-		//enemyGenerator.enemyNumber--;//敵の数の値を減らす
+void DelayDeadAudio(){
+		aud.PlayOneShot(se[4]);//倒れた時の音声再生
 }
+
 	//swordControllerから呼ばれる、剣と剣がぶつかったときに、ダメージと同じアニメーションを再生する
 	public void SwordCollided(){
 		if(swordCollidedOk==false && interval==false){

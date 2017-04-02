@@ -142,6 +142,7 @@ public class EnemyBossController : MonoBehaviour {
 				}else{//ボスが死亡する最後の一撃は、死亡アニメーション再生など
 					dead=true;
 					animator.SetTrigger("Dead");
+					Invoke("DelayDeadAudio",1.8f);
 					Invoke("DelayAudio",4.0f);
 
 				}
@@ -164,9 +165,14 @@ public class EnemyBossController : MonoBehaviour {
 		animator.SetTrigger("idle");
 	}
 	
+	void DelayDeadAudio(){
+		aud.PlayOneShot(se[2]);//地面に倒れた時の音
+}
+	
+	//勝利決定音声再生
 	void DelayAudio(){
 		//勝利決定時の音声を再生してからオブジェクト削除とシーン遷移
-		aud.PlayOneShot(se[1]);
+		aud.PlayOneShot(se[1]);//勝利決定の音
 		Invoke("DelayDestroyer",6);
 	}
 	

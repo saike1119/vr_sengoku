@@ -81,13 +81,13 @@ public class GameController : MonoBehaviour {
 		if(damageEffect>30 && damageEffect<=60) hp=2;
 		if(damageEffect>60 && damageEffect<=120) hp=1;
 		
-		//体力が0になったらResultシーンへ
+		//体力が0になったらLoseシーンへ
 		if(hp==0) {
 			//gameClear=true;
 			SceneManager.LoadScene("LoseScene");
 		}
 		
-		//敵を全て倒したらResultシーンへ
+		//敵を全て倒したらWinシーンへ
 		if(gameClear==true){
 		PlayerPrefs.SetInt("Score", score);//キーに対する値を設定する
 		PlayerPrefs.Save();			
@@ -98,6 +98,7 @@ public class GameController : MonoBehaviour {
 		if(enemyGenerator.bossNow==true && onlyOnce==false){
 			onlyOnce=true;
 			 aud.PlayOneShot(se[1]);
+			 Invoke("LoopAudio",183);
 			}
 	/*
 		if(del>2){
@@ -145,12 +146,19 @@ public class GameController : MonoBehaviour {
 		
 		//隠しコマンド
 		if(Input.GetKeyUp(KeyCode.Y)){
-			aud.PlayOneShot(se[0]);
+			aud.PlayOneShot(se[0]);//野獣音声
 		}
 	}//update
 	
+	//プレイヤーが死亡した時、少し時間を設けてからシーン遷移したいので
 	void DelayMoveScene(){
 		
+	}
+	
+	//BGMをループするための処理
+	void LoopAudio(){
+		aud.PlayOneShot(se[1]);
+		Invoke("LoopAudio",183);//2回目以降はここだけでループ
 	}
 	
 	//enemyControllerクラスから呼ばれる。スコアを加算していく
