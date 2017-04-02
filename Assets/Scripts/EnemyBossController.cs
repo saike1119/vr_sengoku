@@ -21,7 +21,7 @@ public class EnemyBossController : MonoBehaviour {
 	GameObject effect;
 	Vector3 effectPos;
 	
-	public int hitCount=0;//倒れるまでの受ける攻撃回数
+	public int hitCount=0;//のけぞるまでの攻撃を受けた回数格納
 	
 	GameController gameController;//自分がやられたらスコアを他スクリプトに渡す
 	
@@ -134,7 +134,9 @@ public class EnemyBossController : MonoBehaviour {
 				if (swordCollided == false) {//死んでもなくて剣と剣がぶつかってなかったら
 				if(hp>1){//ボスが死亡する前までは普通のダメージアニメーション再生など
 				aud.PlayOneShot(se[0]);
+				if(hitCount==5){//5回攻撃を受けるごとに仰け反るアニメーションを再生
 				animator.SetTrigger("Back");
+				}
 				Invoke("DelayIdle",0.5f);
 				Invoke("SetInterval",3.0f);
 				}else{//ボスが死亡する最後の一撃は、死亡アニメーション再生など
@@ -150,6 +152,7 @@ public class EnemyBossController : MonoBehaviour {
 					}
 				hitCount++;
 				hp--;
+				if(hitCount>=5) hitCount=0;
 				//hp-=100;//死亡アニメーション再生実験
 				gameController.scoreCounter(10);//ボスが剣で切られるたびに少しスコア加算
 			}
