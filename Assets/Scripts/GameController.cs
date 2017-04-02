@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour {
 		
 		//体力が0になったらResultシーンへ
 		if(hp==0) {
-			gameClear=true;
+			//gameClear=true;
 			SceneManager.LoadScene("LoseScene");
 		}
 		
@@ -141,6 +141,10 @@ public class GameController : MonoBehaviour {
 			aud.PlayOneShot(test);
 		}
 	}//update
+	
+	void DelayMoveScene(){
+		
+	}
 	
 	//enemyControllerクラスから呼ばれる。スコアを加算していく
 	public void scoreCounter(int point){
