@@ -11,7 +11,7 @@ public class EnemyGenerator : MonoBehaviour {
 	GameObject enemy;//生成する敵キャラ
 	GameObject effect;//敵を生成すると同時に暗闇エフェクトも生成
 	private float del;//時間関係
-	private bool bossNow=false;
+	public bool bossNow=false;
 	Vector3 enemyPos;
 	private float PosX;
 	private float PosZ;

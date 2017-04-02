@@ -43,7 +43,8 @@ public class GameController : MonoBehaviour {
 	
 	//音声関連
 	AudioSource aud;
-	public AudioClip test;
+	public AudioClip[] se;
+	private bool onlyOnce=false;
 	
 	// Use this for initialization
 	void Start () {
@@ -91,6 +92,12 @@ public class GameController : MonoBehaviour {
 		PlayerPrefs.SetInt("Score", score);//キーに対する値を設定する
 		PlayerPrefs.Save();			
 			 SceneManager.LoadScene("WinScene");
+		}
+		
+		//ボス戦になったらボスBGM再生
+		if(enemyGenerator.bossNow==true && onlyOnce==false){
+			onlyOnce=true;
+			 aud.PlayOneShot(se[1]);
 			}
 	/*
 		if(del>2){
@@ -138,7 +145,7 @@ public class GameController : MonoBehaviour {
 		
 		//隠しコマンド
 		if(Input.GetKeyUp(KeyCode.Y)){
-			aud.PlayOneShot(test);
+			aud.PlayOneShot(se[0]);
 		}
 	}//update
 	
