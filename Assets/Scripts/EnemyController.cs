@@ -92,14 +92,8 @@ public class EnemyController : MonoBehaviour {
 		if(del>5){//5秒になったら攻撃
 		if(attacked==false && dead==false){
 			swordCollidedOk=false;
-			ran=Random.Range(1,3);
-			if(ran==1){
 				//anim.Play("samurai_specal_attack_A");
 				animator.SetTrigger("Attack");
-			}else{
-				//anim.Play("samurai_specal_attack_B");	
-				animator.SetTrigger("Attack2");			
-			}
 			attacked=true;
 		}
 		}

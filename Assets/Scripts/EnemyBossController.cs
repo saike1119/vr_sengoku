@@ -90,7 +90,7 @@ public class EnemyBossController : MonoBehaviour {
 		}
 		//Debug.Log(del);
 		//剣で攻撃処理
-		if(del>3){//3秒になったら攻撃
+		if(del>1.5){//3秒になったら攻撃
 			if(attacked==false && dead==false){//死亡しても時間になったら攻撃するのを防ぐ
 				swordCollidedOk=false;//ボスの攻撃時のみ剣と剣の衝突時アニメーション許可
 				animator.SetTrigger("Attack");
@@ -99,12 +99,12 @@ public class EnemyBossController : MonoBehaviour {
 			}
 		}
 		//3秒で攻撃開始して、それにアニメーションの秒数を考慮した時間になったらリセット
-			if(del>4.5){
+			if(del>3){
 				swordCollidedOk=true;
 				del=0;
 			}
 		//3秒以内なら待機アニメーションに戻る
-		if(del<3){
+		if(del<1.5){
 			if(attacked==true && dead==false){
 				attacked=false;
 			animator.SetTrigger("idle");		
