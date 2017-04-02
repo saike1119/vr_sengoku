@@ -25,7 +25,7 @@ Platform assembly: C:\Users\saike\vr_sengoku\Game_Data\Managed\GETween.dll (this
 Loading C:\Users\saike\vr_sengoku\Game_Data\Managed\GETween.dll into Unity Child Domain
 Platform assembly: C:\Users\saike\vr_sengoku\Game_Data\Managed\GUIAnimatorFREE.dll (this message is harmless)
 Loading C:\Users\saike\vr_sengoku\Game_Data\Managed\GUIAnimatorFREE.dll into Unity Child Domain
-- Completed reload, in  0.170 seconds
+- Completed reload, in  0.175 seconds
 Platform assembly: C:\Users\saike\vr_sengoku\Game_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\saike\vr_sengoku\Game_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0

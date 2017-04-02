@@ -155,6 +155,7 @@
      <Compile Include="Assets\Scripts\HeroController.cs" />
      <Compile Include="Assets\Scripts\InputManager.cs" />
      <Compile Include="Assets\Scripts\ResultController.cs" />
+     <Compile Include="Assets\Scripts\SceneStart.cs" />
      <Compile Include="Assets\Scripts\SpecialAttackController.cs" />
      <Compile Include="Assets\Scripts\StartController.cs" />
      <Compile Include="Assets\Scripts\SwordController.cs" />
