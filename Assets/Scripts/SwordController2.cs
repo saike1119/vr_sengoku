@@ -11,7 +11,7 @@ public class SwordController2 : MonoBehaviour {
 	//剣と剣がぶつかったとき関連
 	public GameObject effectPre;
 	GameObject effect;
-	Vector3 effectPos=new Vector3(0,3,2);
+	Vector3 effectPos=new Vector3(0,0.5f,2);
 
 	//音声関連
 	AudioSource aud;
