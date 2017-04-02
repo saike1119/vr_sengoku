@@ -65,7 +65,7 @@ public class EnemyBossController : MonoBehaviour {
 		
 		//アニメーション関係
 		animator=GetComponent<Animator>();
-		anim=GetComponent<Animation>();
+		anim=GetComponent<Animation>();//使わなくなった
 		
 		//音声のコンポーネント取得
 		aud=GetComponent<AudioSource>();
