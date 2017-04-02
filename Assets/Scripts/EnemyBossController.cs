@@ -78,7 +78,7 @@ public class EnemyBossController : MonoBehaviour {
 		transform.rotation=Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (target.transform.position - transform.position), 0.3f);//ターゲットの方に少しずつ向きが変わる
 		
 		//ターゲットから遠かったら移動する
-		if(transform.position.z>2.5){
+		if(transform.position.z>2.0){
 			transform.position += transform.forward *Time.deltaTime* speed;//前へ移動
 		}else{//ターゲットに近くなったら待機アニメーションスタート
 				del+=Time.deltaTime;//このタイミングで、下の攻撃のための時間計算
