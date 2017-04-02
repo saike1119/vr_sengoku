@@ -20,10 +20,10 @@ MonoBehaviour:
     y: 30
     width: 1440
     height: 744
-  m_MinSize: {x: 879, y: 471}
-  m_MaxSize: {x: 16004, y: 14021}
+  m_MinSize: {x: 885, y: 492}
+  m_MaxSize: {x: 16010, y: 14042}
   vertical: 0
-  controlID: 2311
+  controlID: 2803
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -120,10 +120,10 @@ MonoBehaviour:
     y: 0
     width: 1163
     height: 744
-  m_MinSize: {x: 602, y: 471}
-  m_MaxSize: {x: 12002, y: 14021}
+  m_MinSize: {x: 608, y: 492}
+  m_MaxSize: {x: 12008, y: 14042}
   vertical: 1
-  controlID: 2312
+  controlID: 2804
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,10 +145,10 @@ MonoBehaviour:
     y: 0
     width: 1163
     height: 473
-  m_MinSize: {x: 602, y: 221}
-  m_MaxSize: {x: 12002, y: 4021}
+  m_MinSize: {x: 608, y: 221}
+  m_MaxSize: {x: 12008, y: 4021}
   vertical: 0
-  controlID: 2257
+  controlID: 2805
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,8 +167,8 @@ MonoBehaviour:
     y: 0
     width: 202
     height: 473
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 6}
@@ -202,9 +202,9 @@ MonoBehaviour:
     height: 452
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: f816feff00000000
+    m_SelectedIDs: f0c9fdff
+    m_LastClickedID: -144912
+    m_ExpandedIDs: 88cafdff7cccfdff20cdfdff8ecffdff7cd1fdff62d3fdff04d4fdfff816feff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -491,18 +491,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Audio/vr_sengoku_SE
   m_ViewMode: 1
   m_StartGridSize: 48
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Audio/vr_sengoku_SE
   m_LastFoldersGridSize: 48
   m_LastProjectPath: /Users/aichitakumiki/vr_sengoku
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 363}
-    m_SelectedIDs: 76180100
-    m_LastClickedID: 71798
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 4c170100
+    m_LastClickedID: 71500
     m_ExpandedIDs: 00000000c6410000ba4a0000d67a0000f412010058150100421601004616010076170100d417010084180100f4190100d61a0100ea1b01009a1d0100ec1d0100f61f010022210100dc210100542401006c2501008a2801002a3901002c3901002e3901003039010000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -519,7 +519,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 12}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -556,8 +556,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 8a2a0100
-    m_LastClickedInstanceID: 76426
+    m_SelectedInstanceIDs: f0c9fdff
+    m_LastClickedInstanceID: -144912
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: fc36000064370000b2e901006a310000dcef0100a03f00007e28eaffb02d0000ea3a00001c440000
     m_RenameOverlay:
@@ -575,7 +575,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 12}
+      m_ClientGUIView: {fileID: 0}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -663,7 +663,7 @@ MonoBehaviour:
     y: 94
     width: 275
     height: 723
-  m_ScrollPosition: {x: 0, y: 170.45654}
+  m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: 160
