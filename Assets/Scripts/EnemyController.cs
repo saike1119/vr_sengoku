@@ -64,7 +64,7 @@ public class EnemyController : MonoBehaviour {
 		
 		//音声のコンポーネント取得
 		aud=GetComponent<AudioSource>();
-		aud.PlayOneShot(se[0]);
+		aud.PlayOneShot(se[0]);//走る足音の音声再生
 	}
 	
 		// Update is called once per frame
@@ -79,6 +79,7 @@ public class EnemyController : MonoBehaviour {
 		if(transform.position.z>1.5){
 			transform.position += transform.forward *Time.deltaTime* speed;//前へ移動
 		}else{//ターゲットに近くなったら待機アニメーションスタート
+				aud.Stop();//足音の秒数が長いので、目的地に着いたら音声終了
 				del+=Time.deltaTime;//このタイミングで、下の攻撃のための時間計算
 				if(walked==false && dead==false){
 					walked=true;

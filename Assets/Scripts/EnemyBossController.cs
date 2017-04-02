@@ -69,7 +69,7 @@ public class EnemyBossController : MonoBehaviour {
 		
 		//音声のコンポーネント取得
 		aud=GetComponent<AudioSource>();
-
+		aud.PlayOneShot(se[3]);
 	}
 	
 	// Update is called once per frame
@@ -82,6 +82,7 @@ public class EnemyBossController : MonoBehaviour {
 			transform.position += transform.forward *Time.deltaTime* speed;//前へ移動
 		}else{//ターゲットに近くなったら待機アニメーションスタート
 				del+=Time.deltaTime;//このタイミングで、下の攻撃のための時間計算
+				aud.Stop();//足音の秒数が長いので、目的地に着いたら音声終了
 				if(walked==false && dead==false){
 					walked=true;
 					animator.SetTrigger("idle");
