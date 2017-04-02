@@ -18,7 +18,7 @@ public class DeadContrlller : MonoBehaviour {
 			//もしプレイヤーの体力が0になったら横に倒れるアニメーション作成
 			if(gameController.hp<=0){
 				del+=Time.deltaTime;
-					if(transform.rotation.z<=0 && transform.rotation.z>=-50){
+					if(del<0.5){
 					//transform.RotateAround(centerPoint, transform.forward, -3);
 					transform.Rotate(0,0,-5);
 					}
