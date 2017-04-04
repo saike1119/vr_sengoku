@@ -54,7 +54,7 @@ public class HeroController : MonoBehaviour {
 		transform.rotation= Quaternion.Euler(0,target.transform.localEulerAngles.y,0);
 		
 			//とりあえずクリックしたら攻撃
-		if(Input.GetButton("fire")){
+		if(Input.GetMouseButton(0)){
 				attacked=true;//攻撃をしたことを表すフラグ
 				
 				//500の倍数になるごとに必殺技の回数を増やす

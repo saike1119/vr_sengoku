@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour {
 		if(!(hp==4)){//少しでもダメージを受けていたら少しずつ回復処理
 			del+=Time.deltaTime;
 			if(heroController.dead==false){
-			damageEffect-=del/1.8f;//色の数値の部分を徐々に減らす(delを割ったりすれば回復の速さ調整可能)
+			damageEffect-=del/20.0f;//色の数値の部分を徐々に減らす(delを割ったりすれば回復の速さ調整可能)
 			}
 		//Debug.Log(damageEffect);
 		//画像の色と透明度の状態を常に更新
